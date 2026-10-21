@@ -1,0 +1,27 @@
+/*
+ * Concept C screen: Waveshare 1.28inch Round LCD Module (GC9A01, 240 x 240).
+ * Swaps the ST7789V node for a GC9A01 one on the same SPI bus and pins.
+ * Use on its own on the DK, or through c.overlay.
+ */
+
+#include <zephyr/dt-bindings/display/panel.h>
+
+/delete-node/ &lcd;
+
+/ {
+	chosen {
+		zephyr,display = &lcd;
+	};
+};
+
+&lcd_dbi {
+	lcd: gc9a01@0 {
+		compatible = "galaxycore,gc9x01x";
+		reg = <0>;
+		mipi-max-frequency = <8000000>;
+		pixel-format = <PANEL_PIXEL_FORMAT_RGB_565>;
+		width = <240>;
+		height = <240>;
+		display-inversion;
+	};
+};

@@ -1,0 +1,602 @@
+<title>Macropad Enclosure Concepts</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: drawing sheets. Three concept sheets side by side, a 3D bench below, then notes in two columns. */
+:root {
+  --paper: #eef1f0;      /* page */
+  --sheet: #fafbfa;      /* drawing sheet */
+  --ink: #17212b;
+  --ink-2: #4a5763;
+  --rule: #cdd5d4;
+  --accent: #0b6e74;     /* teal: knob, links, controls */
+  --accent-ink: #ffffff;
+  --mark: #b5412c;       /* drafting red: dimensions only */
+  --ok: #2c7a4b;
+  --warn: #9a6a12;
+  --chip: #e2e8e7;
+  /* drawing fills */
+  --case: #e4e1da; --case-line: #2a333c; --case-edge: #bdb8ad;
+  --cap: #f6f5f1; --cap-line: #707a84; --cap-top: #ffffff; --cap-top-line: #cdd1d6;
+  --bezel: #2a3138; --screen: #0d1820; --tile: #1c3a45; --screen-ui: #3cc0b4;
+  --knob: #0b6e74; --knob-top: #12878e; --usb: #24477a; --desk: #8b9599;
+  --s-bottom: #5b636d; --s-battery: #9fb0bf; --s-pcb: #1f6f43; --s-dark: #2a2e33; --s-switch: #3a3f45;
+  --s-display: #0f1419; --s-clamp: #4a525b; --s-encoder: #a8adb3; --s-mcu: #24477a; --s-psw: #9aa0a6;
+  --f-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --step--1: 0.8125rem; --step-0: 1rem; --step-1: 1.1875rem; --step-2: 1.5rem; --step-3: 2.125rem; --step-4: 2.875rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0e1416; --sheet: #141c1f; --ink: #e2e9e9; --ink-2: #9caaae; --rule: #2a3639;
+    --accent: #3db3aa; --accent-ink: #062a2c; --mark: #e2806a; --ok: #5cc28a; --warn: #d9a441; --chip: #1d2729;
+    --case: #c9c5bc; --case-line: #0b0f12; --case-edge: #a8a397; --cap: #e9e8e3; --cap-line: #59626b; --cap-top: #f7f7f4; --cap-top-line: #b8bcc1;
+    --bezel: #05080a; --screen: #0a1218; --tile: #1a3843; --desk: #56656a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0e1416; --sheet: #141c1f; --ink: #e2e9e9; --ink-2: #9caaae; --rule: #2a3639;
+  --accent: #3db3aa; --accent-ink: #062a2c; --mark: #e2806a; --ok: #5cc28a; --warn: #d9a441; --chip: #1d2729;
+  --case: #c9c5bc; --case-line: #0b0f12; --case-edge: #a8a397; --cap: #e9e8e3; --cap-line: #59626b; --cap-top: #f7f7f4; --cap-top-line: #b8bcc1;
+  --bezel: #05080a; --screen: #0a1218; --tile: #1a3843; --desk: #56656a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: var(--step-0); line-height: 1.55; }
+.wrap { max-width: 1200px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 600; line-height: 1.08; text-wrap: balance; margin: 0; letter-spacing: 0.005em; }
+h1 { font-size: var(--step-4); }
+h2 { font-size: var(--step-3); }
+h3 { font-size: var(--step-2); }
+p { margin: 0; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mono, code { font-family: var(--f-mono); font-size: 0.875em; }
+code { background: var(--chip); padding: 0.05em 0.35em; border-radius: 3px; overflow-wrap: anywhere; }
+.eyebrow { font-family: var(--f-mono); font-size: var(--step--1); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+.muted { color: var(--ink-2); }
+
+/* header */
+header.top { padding-block: 40px 28px; display: grid; gap: 14px; }
+header.top .lede { font-size: var(--step-1); max-width: 62ch; color: var(--ink-2); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-family: var(--f-mono); font-size: var(--step--1); background: var(--chip); border-radius: 999px; padding: 4px 11px; display: inline-flex; align-items: center; gap: 7px; }
+.chip i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.chip .ok { background: var(--ok); } .chip .warn { background: var(--warn); } .chip .info { background: var(--accent); }
+
+section { padding-block: 28px; border-top: 1px solid var(--rule); display: grid; gap: 18px; }
+.sec-head { display: grid; gap: 6px; max-width: 70ch; }
+
+/* concept sheets */
+.sheets { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.sheet { background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px; display: grid; min-width: 0; }
+.sheet.pick { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.tb { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--rule); }
+.tb .letter { font-family: var(--f-display); font-weight: 700; font-size: 2.6rem; line-height: 1; color: var(--accent); }
+.tb .nm { display: grid; }
+.tb .nm b { font-family: var(--f-display); font-weight: 600; font-size: var(--step-2); line-height: 1.1; }
+.tb .nm span { font-size: var(--step--1); color: var(--ink-2); }
+.badge { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; background: var(--accent); color: var(--accent-ink); padding: 3px 8px; border-radius: 3px; white-space: nowrap; }
+.fig { padding: 10px 12px 0; display: grid; gap: 4px; }
+.fig svg { width: 100%; height: auto; display: block; }
+.figcap { font-family: var(--f-mono); font-size: 0.72rem; color: var(--ink-2); letter-spacing: 0.02em; }
+.specs { margin: 0; padding: 12px 14px; display: grid; grid-template-columns: max-content 1fr; gap: 5px 14px; font-size: 0.9rem; border-top: 1px solid var(--rule); }
+.specs dt { color: var(--ink-2); }
+.specs dd { margin: 0; font-variant-numeric: tabular-nums; min-width: 0; }
+.verdict { padding: 0 14px 14px; display: grid; gap: 8px; font-size: 0.9rem; }
+.verdict p b { font-weight: 600; }
+.sheet .act { padding: 0 14px 14px; }
+.btn { font: 500 0.9rem var(--f-body); border: 1px solid var(--accent); color: var(--accent); background: transparent; border-radius: 4px; padding: 7px 12px; cursor: pointer; }
+.btn:hover { background: var(--accent); color: var(--accent-ink); }
+
+/* drawing classes (shared by inline SVG) */
+.case { fill: var(--case); stroke: var(--case-line); stroke-width: .35; }
+.case-edge { fill: none; stroke: var(--case-edge); stroke-width: .25; }
+.cap { fill: var(--cap); stroke: var(--cap-line); stroke-width: .3; }
+.cap-top { fill: var(--cap-top); stroke: var(--cap-top-line); stroke-width: .2; }
+.bezel { fill: var(--bezel); } .screen { fill: var(--screen); } .tile { fill: var(--tile); }
+.screen-ui { fill: none; stroke: var(--screen-ui); stroke-width: 1.4; }
+.knob { fill: var(--knob); } .knob-top { fill: var(--knob-top); } .knob-dot { fill: #ffffff; } .usb { fill: var(--usb); }
+.dim line { stroke: var(--mark); stroke-width: .25; }
+.dim text, svg .note { font-family: var(--f-mono); font-size: 3.1px; fill: var(--mark); }
+.plan .dim text, .plan .note { font-size: 3.9px; }
+.section .dim text, .section .note { font-size: 5.2px; }
+svg .note { fill: var(--ink-2); }
+.desk { stroke: var(--desk); stroke-width: .35; }
+.s-top { fill: var(--case); stroke: var(--case-line); stroke-width: .15; }
+.s-bottom { fill: var(--s-bottom); } .s-battery { fill: var(--s-battery); } .s-pcb { fill: var(--s-pcb); }
+.s-sockets { fill: var(--s-dark); } .s-switches { fill: var(--s-switch); }
+.s-keycaps { fill: var(--cap); stroke: var(--cap-line); stroke-width: .15; }
+.s-display { fill: var(--s-display); } .s-clamp { fill: var(--s-clamp); } .s-encoder { fill: var(--s-encoder); }
+.s-mcu { fill: var(--s-mcu); } .s-power_switch { fill: var(--s-psw); } .s-knob { fill: var(--knob); }
+
+/* 3D bench */
+.bench { background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px; display: grid; grid-template-columns: minmax(0, 1fr) 260px; min-width: 0; }
+.viewer { position: relative; min-height: 420px; height: min(62vh, 560px); border-right: 1px solid var(--rule); min-width: 0; overflow: hidden; touch-action: none; }
+.viewer canvas { display: block; width: 100% !important; height: 100% !important; }
+.viewer .msg { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; color: var(--ink-2); font-size: 0.95rem; }
+.viewer .hint { position: absolute; left: 12px; bottom: 10px; font-family: var(--f-mono); font-size: 0.72rem; color: var(--ink-2); pointer-events: none; }
+.controls { padding: 14px; display: grid; gap: 16px; align-content: start; }
+.ctl { display: grid; gap: 6px; }
+.ctl > span { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+.seg { display: flex; border: 1px solid var(--rule); border-radius: 5px; overflow: hidden; }
+.seg button { flex: 1; font: 500 0.88rem var(--f-body); padding: 7px 4px; border: 0; background: transparent; color: var(--ink); cursor: pointer; line-height: 1.2; }
+.seg button b { display: block; font-family: var(--f-display); font-size: 1.25rem; font-weight: 600; }
+.seg button small { display: block; font-size: 0.74rem; }
+.seg button + button { border-left: 1px solid var(--rule); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.legend { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 10px; font-size: 0.8rem; margin: 0; padding: 0; list-style: none; }
+.legend li { display: flex; gap: 7px; align-items: center; min-width: 0; }
+.legend i { width: 11px; height: 11px; border-radius: 2px; flex: none; border: 1px solid rgba(127,127,127,.4); }
+.readout { font-size: 0.85rem; color: var(--ink-2); }
+
+/* notes */
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 36px; }
+.note-block { display: grid; gap: 8px; min-width: 0; }
+.note-block h3 { font-size: var(--step-1); font-family: var(--f-body); font-weight: 600; }
+.prose { display: grid; gap: 10px; max-width: 68ch; }
+ul.tight { margin: 0; padding-left: 1.1em; display: grid; gap: 5px; }
+.tablebox { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--sheet); }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 7px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); font-weight: 500; }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { text-align: right; }
+tr.total td { font-weight: 600; }
+.stack { background: var(--sheet); border: 1px solid var(--rule); border-radius: 6px; padding: 12px; overflow-x: auto; }
+.stack svg { width: 100%; max-width: 980px; min-width: 560px; height: auto; display: block; margin: 0 auto; }
+.stack text { font-family: var(--f-mono); font-size: 2.7px; fill: var(--ink); }
+.stack .lbl { fill: var(--ink-2); }
+.stack .dimv { stroke: var(--mark); stroke-width: .25; fill: none; }
+.stack .dimt { fill: var(--mark); }
+.pcbfig { margin: 18px 0 0; background: #fff; border: 1px solid var(--rule); border-radius: 6px; padding: 12px; }
+.pcbfig img { display: block; width: 100%; max-width: 640px; height: auto; margin: 0 auto; }
+.pcbfig figcaption { margin-top: 8px; font-size: 0.85rem; color: #4a525b; }
+.files { display: grid; gap: 4px; font-family: var(--f-mono); font-size: 0.82rem; }
+.files div { display: grid; grid-template-columns: minmax(0, 22ch) minmax(0, 1fr); gap: 12px; }
+.files div span:first-child { overflow-wrap: anywhere; }
+footer { padding-block: 24px 40px; border-top: 1px solid var(--rule); color: var(--ink-2); font-size: 0.85rem; display: grid; gap: 6px; }
+
+@media (max-width: 980px) {
+  .sheets { grid-template-columns: minmax(0, 1fr); max-width: 560px; }
+  .bench { grid-template-columns: minmax(0, 1fr); }
+  .viewer { border-right: 0; border-bottom: 1px solid var(--rule); height: 60vh; min-height: 340px; }
+  .cols { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 480px) {
+  h1 { font-size: 2.2rem; }
+  .files div { grid-template-columns: minmax(0, 1fr); gap: 0; }
+}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">Wireless Trackball Project · next build</div>
+  <h1>A macropad with a screen: three printable starting points</h1>
+  <p class="lede">Each concept is a tilted 3D-printed case with Cherry MX hot-swap keys, an EC11 knob and a small SPI LCD, run by an nRF52840 with the same Zephyr firmware and config app as the trackball. All three come from one parametric OpenSCAD file, and every part fits a 180 mm printer bed.</p>
+  <div class="chips">
+    <span class="chip"><i class="ok"></i>Fit check: no parts overlap in A, B or C</span>
+    <span class="chip"><i class="ok"></i>Firmware compiles for the DK and the Pro Micro</span>
+    <span class="chip"><i class="warn"></i>Display and encoder sizes are from listings: measure yours</span>
+    <span class="chip"><i class="info"></i>Dimensions in mm</span>
+  </div>
+</header>
+
+<section id="compare">
+  <div class="sec-head">
+    <h2>Compare the concepts</h2>
+    <p class="muted">Plan views and cross-sections are drawn to the same scale, so sizes compare directly. The sections are cut through the real 3D models: the left one through a key column and the screen, the right one through the knob and the controller.</p>
+  </div>
+  <div class="sheets">
+{{SHEETS}}
+  </div>
+</section>
+
+<section id="bench">
+  <div class="sec-head">
+    <h2>Turn it over</h2>
+    <p class="muted">The same models in 3D. Hide or ghost the case to see how the PCB, battery, controller and display stack up, or pull the layers apart. The screen shows an example layout.</p>
+  </div>
+  <div class="bench">
+    <div class="viewer" id="viewer" aria-label="3D model of the selected concept">
+      <div class="msg" id="viewer-msg">Loading the 3D model…</div>
+      <div class="hint">Drag to orbit · scroll or pinch to zoom · right-drag to pan</div>
+    </div>
+    <div class="controls">
+      <div class="ctl"><span>Concept</span>
+        <div class="seg" role="group" aria-label="Concept">
+          <button type="button" id="c-A" data-concept="A" aria-pressed="false"><b>A</b><small>Pocket</small></button>
+          <button type="button" id="c-B" data-concept="B" aria-pressed="true"><b>B</b><small>Studio</small></button>
+          <button type="button" id="c-C" data-concept="C" aria-pressed="false"><b>C</b><small>Deck</small></button>
+        </div>
+      </div>
+      <div class="ctl"><span>Case</span>
+        <div class="seg" role="group" aria-label="Case display">
+          <button type="button" id="m-solid" data-mode="solid" aria-pressed="true">Solid</button>
+          <button type="button" id="m-ghost" data-mode="ghost" aria-pressed="false">See-through</button>
+          <button type="button" id="m-hidden" data-mode="hidden" aria-pressed="false">Hidden</button>
+        </div>
+      </div>
+      <div class="ctl"><span>Layers</span>
+        <div class="seg" role="group" aria-label="Layers">
+          <button type="button" id="x-off" data-explode="0" aria-pressed="true">Assembled</button>
+          <button type="button" id="x-on" data-explode="1" aria-pressed="false">Exploded</button>
+        </div>
+      </div>
+      <div class="ctl"><span>Parts</span>
+        <ul class="legend" id="legend"></ul>
+      </div>
+      <p class="readout" id="readout"></p>
+    </div>
+  </div>
+</section>
+
+<section id="inside">
+  <div class="sec-head">
+    <h2>How the inside works</h2>
+    <p class="muted">The same rules apply to all three concepts. Every number here is a parameter at the top of <code>macropad.scad</code>.</p>
+  </div>
+  <div class="stack" role="img" aria-label="Layer stack under one key, to scale">
+{{STACK}}
+  </div>
+  <div class="cols">
+    <div class="note-block"><h3>The lid is the switch plate</h3>
+      <p>MX switches clip into a 14 mm square hole in a 1.5 mm plate. The top skin is 3 mm thick: the first 1.5 mm has the 14 mm hole, and below it a 15 mm pocket gives the clips room to spring open. The 1.5 mm left between neighbouring pockets acts as a grid of ribs, which keeps a printed plate from flexing when you press a key.</p></div>
+    <div class="note-block"><h3>Hot-swap PCB 5 mm below the plate</h3>
+      <p>The MX standard puts the PCB top 5.0 mm under the plate top. Kailh hot-swap sockets sit under the PCB (1.85 mm), so switches push in and pull out without soldering. The PCB hangs from the switches and is pulled up against small pillars between the keys with M2 screws, so it can't sag when you pull a keycap.</p></div>
+    <div class="note-block"><h3>The tilt makes room for the battery</h3>
+      <p>The top is tilted 6–7°, but the bottom plate is flat. The space under the PCB therefore grows toward the back: 2 mm under the front sockets, and 10 mm or more under the screen. The LiPo, controller and display all sit in that rear band, so the front stays a low 12.5 mm.</p></div>
+    <div class="note-block"><h3>Screen behind a 1 mm bezel</h3>
+      <p>The window is the active pixel area plus 0.4 mm, with a 45° chamfer so the bezel doesn't shade the edge pixels when you look at the screen at an angle. The glass sits in a pocket from below and a printed clamp holds the module board with two M2 screws. The main PCB has a cut-out there, and the module connects with 8 short wires (SPI, power and backlight).</p></div>
+    <div class="note-block"><h3>Controller face down at the back</h3>
+      <p>A Pro Micro-size nRF52840 board hangs under the PCB on 2.5 mm headers, with its USB-C facing the rear wall. The wall opening is 13 × 7.5 mm, sized for the cable's moulded plug rather than the metal plug. A hole that only fits the metal part is a common printed-case mistake: the plug never seats fully.</p></div>
+    <div class="note-block"><h3>Four screws and heat-set inserts</h3>
+      <p>Four M3 countersunk screws go up through the bottom plate into short M3 brass inserts, which you press into the corner bosses with the soldering iron (around 220 °C for PLA). A 1.5 mm lip on the bottom plate locates it inside the walls, a cradle holds the LiPo, and four 10 mm rubber feet sit in shallow recesses. A slide switch on the right wall cuts the battery.</p></div>
+  </div>
+</section>
+
+<section id="electronics">
+  <div class="sec-head">
+    <h2>Electronics and firmware</h2>
+    <p class="muted">Worked out for all three concepts while the choice is open. The firmware compiles; nothing has run on hardware yet.</p>
+  </div>
+  <div class="cols">
+    <div class="note-block"><h3>Controller: Pro Micro-size nRF52840</h3>
+      <p>Chosen: the "SuperMini nRF52840" (about £4.50), a clone of the nice!nano v2 (about £25, a drop-in swap if a SuperMini disappoints). The same chip as your DK and trackball, 18 GPIO on through-hole pins, a LiPo charger and USB-C. Zephyr's board target is <code>promicro_nrf52840/nrf52840/uf2</code>. It ships with a UF2 bootloader: new firmware is a file you drag onto a USB drive.</p>
+      <p>Two things in its pin choice matter. Nordic marks ten of its pins "low frequency only", so the LCD clock and data use two full-speed pins and the slow signals (keys, knob, reset, backlight) take the restricted ones. And on the SuperMini the 3.3 V pin that powers the LCD stays off until firmware drives P0.13 high. Some SuperMini batches have a faulty 32 kHz crystal, so the firmware uses the chip's own RC clock for Bluetooth instead.</p></div>
+    <div class="note-block"><h3>Firmware: <code>firmware/</code></h3>
+      <ul class="tight">
+        <li>Keys: <code>gpio-kbd-matrix</code> plus <code>input-keymap</code>, one 1N4148W per switch, knob push in the matrix.</li>
+        <li>Knob: <code>gpio-qdec</code>, which sleeps on a GPIO interrupt between turns. Volume, push to mute.</li>
+        <li>Screen: <code>sitronix,st7789v</code> or <code>galaxycore,gc9x01x</code> with LVGL 9. At 16 MHz a full 320 × 240 frame takes about 80 ms, one tile about 6 ms. Tiles light up while their key is held; backlight off after 60 s.</li>
+        <li>HID: keyboard and media reports over USB (same <code>sample_usbd</code> helper as the trackball) or Bluetooth (NCS HIDS), USB first. Battery level from VDDH, no divider.</li>
+        <li>Compiles for the DK and the Pro Micro, for all three concepts: 529 KB flash, 108 KB RAM for B.</li>
+      </ul></div>
+  </div>
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>GPIO used</th><th class="num">A · 3 × 3</th><th class="num">B · 4 × 3</th><th class="num">C · 4 × 4</th><th>Pins (Pro Micro label)</th></tr></thead>
+      <tbody>
+        <tr><td>Key matrix (keys + knob push)</td><td class="num">7 <span class="muted">(3 × 4)</span></td><td class="num">8 <span class="muted">(3 × 5)</span></td><td class="num">9 <span class="muted">(4 × 5)</span></td><td>Rows D6, D7, D8 (+ D0); columns D9, D14, D15, D20, D21</td></tr>
+        <tr><td>Knob A / B</td><td class="num">2</td><td class="num">2</td><td class="num">2</td><td>D10, D16 (the NFC pins)</td></tr>
+        <tr><td>LCD: SCK, MOSI, CS, DC, RST, backlight</td><td class="num">6</td><td class="num">6</td><td class="num">6</td><td>D2, D3, D4, D5, D18, D19</td></tr>
+        <tr><td>Debug log out</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td>D1 (optional; logs also go over USB)</td></tr>
+        <tr class="total"><td>Total of 18</td><td class="num">16</td><td class="num">17</td><td class="num">18</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <figure class="pcbfig">
+    <img src="models/pcb_B.svg" alt="Concept B main PCB placement, top view: twelve key sockets with diodes, the display opening, the controller under the knob at the back right, and the power switch on the right edge">
+    <figcaption class="muted">Concept B main PCB, generated from the case model: 12 hot-swap sockets and diodes, the display opening, the controller (blue) under the knob, LCD wire pads on the left, battery plug, power switch in the right wall. Netlist, BOM and placement for Altium are in <code>macropad/pcb/</code>; the script refuses to write them if parts overlap.</figcaption>
+  </figure>
+</section>
+
+<section id="print">
+  <div class="sec-head">
+    <h2>Printing</h2>
+    <p class="muted">Every part prints without supports. The largest is C's top shell at {{LARGEST}}, so any printer you're looking at, including 180 mm beds like the Bambu A1 mini, will do.</p>
+  </div>
+  <div class="cols">
+    <div class="note-block"><h3>1. Print the test coupon first</h3>
+      <p><code>stl/test_coupon.stl</code> is a 15-minute strip with four switch holes from 13.9 to 14.2 mm (marked with 1 to 4 dots) and two insert holes. Use the hole where a switch clicks in firmly and doesn't rattle, then set <code>sw_hole</code> and <code>insert_d</code> in <code>macropad.scad</code> and rebuild. Printers differ by a tenth of a millimetre or two here, and this is the fit that matters most.</p></div>
+    <div class="note-block"><h3>2. Orientation and settings</h3>
+      <ul class="tight">
+        <li>Top shell: top surface down on the bed. The walls are square to the top surface, so they print straight up, and the insert holes face up.</li>
+        <li>Bottom plate and display clamp: flat.</li>
+        <li>Knob: top face down, for a smooth top.</li>
+        <li>PLA for test fits; PETG or PLA+ for the final case. 0.2 mm layers, 3–4 walls, 15–20% infill.</li>
+      </ul></div>
+    <div class="note-block"><h3>3. Assembly order</h3>
+      <p>Inserts into the bosses, switches into the lid, PCB pressed onto the switches and screwed to the pillars, display and clamp, controller and wires, battery into the cradle, then the bottom plate and feet.</p></div>
+    <div class="note-block"><h3>4. Before the PCB</h3>
+      <p>You can print a case and hand-wire it first: switches in the lid, a diode on each, wires to the controller. It's a cheap way to check the feel and the screen position before ordering boards. <code>dxf/pcb_outline_*.dxf</code> has the board outline, MX centre holes and pillar holes for Altium.</p></div>
+  </div>
+</section>
+
+<section id="pick">
+  <div class="sec-head">
+    <h2>Chosen: B · Studio</h2>
+  </div>
+  <div class="prose">
+    <p>The 2.0″ screen is 320 × 240, which divides exactly into a 4 × 3 grid of 80-pixel tiles. Each key's icon and label then sits on the screen in the same place as the key itself, which is what makes a Stream Deck easy to use, without needing a screen in every key. It has the biggest screen, a full-size knob and 12 keys, and it still prints in one piece on any bed.</p>
+    <p>The cost is width: the 2.0″ module's board is 58 mm long because the connector sits past the glass, which pushes the knob to the right and makes the case 101 mm wide. A suits a first, cheaper build. C suits you if you want more keys and mainly use the screen for the knob.</p>
+    <p>Since the first version of this page: the firmware starter, the PCB inputs for Altium and a UK shopping list are done for B, with A and C kept working alongside. You chose B on 21 October. Next steps: buy the 2.0″ display module and an EC11 and measure them, and print the coupon. The screen and knob can run on the DK before any PCB exists.</p>
+  </div>
+</section>
+
+<section id="files">
+  <div class="sec-head">
+    <h2>Files</h2>
+    <p class="muted">In the <a href="https://github.com/jasoneroberts/macropad">jasoneroberts/macropad</a> repo. Change a number at the top of <code>scad/macropad.scad</code>, then run <code>python tools/build.py</code> to rebuild every STL, the PCB outlines and the fit check.</p>
+  </div>
+  <div class="files">
+    <div><span>scad/macropad.scad</span><span class="muted">the parametric model (OpenSCAD 2021.01+)</span></div>
+    <div><span>stl/&lt;A|B|C&gt;/print/</span><span class="muted">top, bottom, knob, clamp, already oriented for the bed</span></div>
+    <div><span>stl/&lt;A|B|C&gt;/view/</span><span class="muted">every part and dummy component in the assembled position</span></div>
+    <div><span>stl/test_coupon.stl</span><span class="muted">switch and insert hole test</span></div>
+    <div><span>dxf/pcb_outline_*.dxf</span><span class="muted">board outline for Altium</span></div>
+    <div><span>build/report_*.json</span><span class="muted">dimensions, positions, fit check result</span></div>
+    <div><span>build/viewer_*.glb</span><span class="muted">coloured assemblies (also open in Windows 3D Viewer)</span></div>
+    <div><span>firmware/</span><span class="muted">Zephyr app: keys, knob, screen, USB and Bluetooth HID (README inside)</span></div>
+    <div><span>firmware/prebuilt/</span><span class="muted">ready-to-flash concept B images for the DK and the Pro Micro</span></div>
+    <div><span>pcb/&lt;A|B|C&gt;/</span><span class="muted">BOM, netlist, placement and outline for Altium (pcb/generate.py)</span></div>
+    <div><span>SHOPPING.md</span><span class="muted">what to buy for B, what to measure when it arrives</span></div>
+    <div><span>tools/</span><span class="muted">build.py, drawings.py and the script that makes this page</span></div>
+  </div>
+</section>
+
+<footer>
+  <p>Display sizes: <a href="https://www.waveshare.com/1.69inch-lcd-module.htm" target="_blank" rel="noopener">Waveshare 1.69″</a> (board 31.5 × 39.0, active 27.97 × 32.63), <a href="https://www.waveshare.com/2inch-LCD-Module.htm" target="_blank" rel="noopener">Waveshare 2.0″</a> (board 58.0 × 35.0, active 40.8 × 30.6), <a href="https://www.waveshare.com/1.28inch-LCD-Module.htm" target="_blank" rel="noopener">Waveshare 1.28″ round</a> (Ø37.5 board, Ø32.4 active). Glass outlines are estimates. Controller board target: <a href="https://docs.zephyrproject.org/latest/boards/others/promicro_nrf52840/doc/index.html" target="_blank" rel="noopener">Zephyr Pro Micro nRF52840</a>.</p>
+  <p>Generated {{DATE}} from macropad.scad.</p>
+</footer>
+</div>
+
+<script>window.MACROPAD = {{DATA}};</script>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script>
+// sheet buttons jump to the 3D bench (works even if WebGL is unavailable)
+document.querySelectorAll("[data-show]").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var t = document.getElementById("c-" + b.dataset.show);
+    if (t) t.click();
+    document.getElementById("bench").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  });
+});
+</script>
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { toCreasedNormals } from "three/addons/utils/BufferGeometryUtils.js";
+
+const D = window.MACROPAD;
+const host = document.getElementById("viewer");
+const msg = document.getElementById("viewer-msg");
+const readout = document.getElementById("readout");
+
+const LEGEND = [["top", "Case"], ["bottom", "Bottom plate"], ["keycaps", "Keycaps"], ["switches", "MX switches"],
+  ["knob", "Knob"], ["encoder", "EC11 encoder"], ["pcb", "Main PCB"], ["sockets", "Hot-swap sockets"],
+  ["display", "LCD module"], ["clamp", "Display clamp"], ["mcu", "nRF52840"], ["battery", "LiPo"], ["power_switch", "Power switch"]];
+const leg = document.getElementById("legend");
+LEGEND.forEach(([k, label]) => {
+  const li = document.createElement("li");
+  li.innerHTML = `<i style="background:${D.colours[k]}"></i><span>${label}</span>`;
+  leg.appendChild(li);
+});
+
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+} catch (e) {
+  msg.textContent = "The 3D view needs WebGL, which isn't available here. The drawings above show the same models.";
+  throw e;
+}
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+host.prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(32, 1, 1, 4000);
+camera.up.set(0, 0, 1);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+
+const hemi = new THREE.HemisphereLight(0xffffff, 0x6f7a80, 1.25);
+hemi.position.set(0, 0, 1);
+scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xffffff, 1.7);
+sun.position.set(-140, -200, 320);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+Object.assign(sun.shadow.camera, { left: -160, right: 160, top: 160, bottom: -160, near: 10, far: 900 });
+scene.add(sun);
+const fill = new THREE.DirectionalLight(0xffffff, 0.45);
+fill.position.set(220, 120, 140);
+scene.add(fill);
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(1200, 1200), new THREE.ShadowMaterial({ opacity: 0.16 }));
+ground.position.z = -0.05;
+ground.receiveShadow = true;
+scene.add(ground);
+
+const EXPLODE = { top: 34, keycaps: 60, knob: 60, bottom: -22, battery: -11, screen: 0 };
+const loader = new GLTFLoader();
+const cache = {};
+let current = null, mode = "solid", explode = 0, explodeNow = 0;
+
+function screenCanvas(r) {
+  const [pw, ph] = r.px;
+  const s = 2, c = document.createElement("canvas");
+  c.width = pw * s; c.height = ph * s;
+  const g = c.getContext("2d");
+  g.scale(s, s);
+  g.fillStyle = "#0b141a"; g.fillRect(0, 0, pw, ph);
+  const font = (w, px) => `${w} ${px}px "IBM Plex Sans", system-ui, sans-serif`;
+  if (r.disp_type === "round") {
+    const cx = pw / 2, cy = ph / 2;
+    g.lineCap = "round";
+    g.strokeStyle = "#1f3540"; g.lineWidth = 16;
+    g.beginPath(); g.arc(cx, cy, 98, Math.PI * 0.75, Math.PI * 2.25); g.stroke();
+    g.strokeStyle = "#3cc0b4";
+    g.beginPath(); g.arc(cx, cy, 98, Math.PI * 0.75, Math.PI * (0.75 + 1.5 * 0.64)); g.stroke();
+    g.fillStyle = "#e9f3f2"; g.textAlign = "center";
+    g.font = font(600, 54); g.fillText("64", cx, cy + 14);
+    g.font = font(500, 16); g.fillStyle = "#8fb3b0"; g.fillText("VOLUME", cx, cy - 38);
+    g.font = font(500, 15); g.fillText("Media · Desk", cx, cy + 46);
+    return c;
+  }
+  const labels = r.cols === 3
+    ? ["Mute", "Camera", "Share", "Copy", "Paste", "Undo", "Prev", "Play", "Next"]
+    : ["Mute", "Camera", "Hand", "Leave", "Copy", "Paste", "Undo", "Redo", "Prev", "Play", "Next", "Lock"];
+  const hues = ["#1d5560", "#1d5560", "#1d5560", "#3b4a6b", "#3b4a6b", "#3b4a6b", "#5a3f4f", "#5a3f4f", "#5a3f4f"];
+  const head = ph - 80 * r.rows;
+  if (head > 0) {
+    g.fillStyle = "#e9f3f2"; g.font = font(600, 17); g.textAlign = "left";
+    g.fillText("Meetings", 12, 26);
+    g.fillStyle = "#8fb3b0"; g.font = font(500, 13); g.textAlign = "right";
+    g.fillText("1 / 3   ▮▮▮▯", pw - 12, 26);
+  }
+  for (let j = 0; j < r.rows; j++) for (let i = 0; i < r.cols; i++) {
+    const k = j * r.cols + i, x = i * 80, y = head + j * 80;
+    g.fillStyle = hues[Math.min(j * 3 + Math.floor(i * 3 / r.cols), 8)];
+    g.beginPath(); g.roundRect(x + 4, y + 4, 72, 72, 9); g.fill();
+    g.fillStyle = "rgba(255,255,255,.14)";
+    g.beginPath(); g.arc(x + 40, y + 31, 13, 0, Math.PI * 2); g.fill();
+    g.fillStyle = "#eef6f5"; g.font = font(500, 14); g.textAlign = "center";
+    g.fillText(labels[k], x + 40, y + 66);
+  }
+  return c;
+}
+
+function screenMesh(r) {
+  const tex = new THREE.CanvasTexture(screenCanvas(r));
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 4;
+  const mat = new THREE.MeshBasicMaterial({ map: tex });
+  const geo = r.disp_type === "round" ? new THREE.CircleGeometry(r.active / 2, 96) : new THREE.PlaneGeometry(r.active[0], r.active[1]);
+  const m = new THREE.Mesh(geo, mat);
+  m.position.set(r.disp_c[0] + r.active_off[0], r.disp_c[1] + r.active_off[1], -r.bezel_t + 0.06);
+  const g = new THREE.Group();
+  g.position.z = r.front_h;
+  g.rotation.x = THREE.MathUtils.degToRad(r.tilt);
+  g.add(m);
+  g.name = "screen";
+  return g;
+}
+
+function prepare(gltf, r) {
+  const root = new THREE.Group();
+  gltf.scene.updateMatrixWorld(true);
+  const parts = {};
+  gltf.scene.traverse((o) => {
+    if (!o.isMesh) return;
+    const name = (o.name || "").replace(/_\d+$/, "");
+    const key = Object.keys(D.colours).find((k) => name === k || o.parent?.name === k) || name;
+    o.geometry = toCreasedNormals(o.geometry, Math.PI / 5);   // CAD meshes have no normals: keep edges sharp, curves smooth
+    o.material = new THREE.MeshStandardMaterial({ color: D.colours[key] || "#999999", roughness: key === "display" ? 0.25 : 0.72, metalness: key === "encoder" ? 0.5 : 0.0 });
+    o.castShadow = true; o.receiveShadow = true;
+    o.userData.part = key;
+    (parts[key] = parts[key] || []).push(o);
+  });
+  root.add(gltf.scene);
+  const scr = screenMesh(r);
+  root.add(scr);
+  parts.screen = [scr];
+  return { root, parts, r };
+}
+
+function frame(entry) {
+  const box = new THREE.Box3().setFromObject(entry.root);
+  const c = box.getCenter(new THREE.Vector3());
+  const size = box.getSize(new THREE.Vector3()).length();
+  controls.target.copy(c);
+  const dir = new THREE.Vector3(0.62, -1.0, 0.95).normalize();
+  camera.position.copy(c).addScaledVector(dir, size * 1.55);
+  controls.update();
+}
+
+function applyMode() {
+  if (!current) return;
+  (current.parts.top || []).forEach((m) => {
+    m.visible = mode !== "hidden";
+    m.material.transparent = mode === "ghost";
+    m.material.opacity = mode === "ghost" ? 0.22 : 1;
+    m.material.depthWrite = mode !== "ghost";
+    m.castShadow = mode === "solid";
+  });
+}
+
+function applyExplode(t) {
+  if (!current) return;
+  for (const [k, dz] of Object.entries(EXPLODE)) (current.parts[k] || []).forEach((o) => {
+    if (o.userData.z0 === undefined) o.userData.z0 = o.position.z;
+    o.position.z = o.userData.z0 + dz * t;
+  });
+}
+
+function show(concept) {
+  document.querySelectorAll("[data-concept]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.concept === concept)));
+  const r = D.reports[concept];
+  readout.textContent = `${r.name}: ${r.W.toFixed(0)} × ${r.depth_on_desk.toFixed(0)} mm on the desk, ${r.front_h.toFixed(1)} mm at the front, ${r.rear_h.toFixed(1)} mm at the back.`;
+  const go = (entry) => {
+    if (current) scene.remove(current.root);
+    current = entry;
+    scene.add(entry.root);
+    applyMode();
+    applyExplode(explodeNow);
+    frame(entry);
+    msg.hidden = true;
+  };
+  if (cache[concept]) return go(cache[concept]);
+  msg.hidden = false;
+  msg.textContent = "Loading the 3D model…";
+  loader.load(`models/viewer_${concept}.json`, (gltf) => go(cache[concept] = prepare(gltf, r)), undefined,
+    () => { msg.hidden = false; msg.textContent = "The 3D model didn't load. The drawings above show the same geometry."; });
+}
+
+document.querySelectorAll("[data-concept]").forEach((b) => b.addEventListener("click", () => show(b.dataset.concept)));
+document.querySelectorAll("[data-mode]").forEach((b) => b.addEventListener("click", () => {
+  mode = b.dataset.mode;
+  document.querySelectorAll("[data-mode]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  applyMode();
+}));
+document.querySelectorAll("[data-explode]").forEach((b) => b.addEventListener("click", () => {
+  explode = +b.dataset.explode;
+  document.querySelectorAll("[data-explode]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { explodeNow = explode; applyExplode(explodeNow); }
+}));
+
+function resize() {
+  const w = host.clientWidth, h = host.clientHeight;
+  if (!w || !h) return;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(host);
+resize();
+
+renderer.setAnimationLoop(() => {
+  if (Math.abs(explodeNow - explode) > 0.001) {
+    explodeNow += (explode - explodeNow) * 0.12;
+    if (Math.abs(explodeNow - explode) < 0.002) explodeNow = explode;
+    applyExplode(explodeNow);
+  }
+  controls.update();
+  renderer.render(scene, camera);
+});
+
+show("B");
+</script>

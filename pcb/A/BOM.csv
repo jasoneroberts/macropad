@@ -1,0 +1,16 @@
+Designators,Qty,Value,Manufacturer,Manufacturer part number,Package,Est. unit GBP,Description
+"C1, C2",2,10nF,,,0805,0.02,Encoder debounce (with the internal pull-up)
+C3,1,10uF,,,0805,0.05,LCD supply bulk (backlight switch-on)
+"D1, D2, D3, D4, D5, D6, D7, D8, D9, D10",10,1N4148W,Diodes Inc,1N4148W-7-F,SOD-123,0.03,Matrix diode
+ENC1,1,EC11 encoder with switch,Alps Alpine (or generic EC11),EC11E15244G1,"EC11, THT, 15-20 mm D-shaft",1.8,"Knob: volume, push = mute"
+"H1, H2, H3, H4",4,M2 hole,,,2.2 mm NPTH,,M2 self-tapping screw into the case pillar
+J1,1,Battery,JST,B2B-PH-K-S(LF)(SN),"JST PH 2-pin, THT, vertical",0.2,LiPo plug. Check the cell's lead polarity before plugging in
+J2,1,LCD wires,,,"8 x 1.0 mm plated holes, 2.54 mm pitch",,Solder the module's cable here (Waveshare order)
+"SW1, SW2, SW3, SW4, SW5, SW6, SW7, SW8, SW9",9,MX hot-swap socket,Kailh,CPG151101S11,MX hot-swap socket (pads on bottom),0.12,"Key socket, switch plugs in from the top"
+SW_PWR,1,Power switch,generic,SK12D07VG4,"SPDT slide, right-angle THT, 2.54 mm",0.3,Battery on/off. Actuator pokes out of the right wall slot. MEASURE vs case slot
+SW_RST,1,Reset,C&K,PTS636 SM25 SMTR LFS,"6 x 3.5 mm tact, gull-wing",0.25,Double-press = UF2 bootloader (case open)
+TP1,1,DBG_TX,,,1.5 mm test pad,,"UART log out (115200), optional"
+TP2,1,GND,,,1.5 mm test pad,,"UART log out (115200), optional"
+U1,1,SuperMini nRF52840,generic (or nice!nano v2),nice!nano v2 compatible,"Pro Micro 24-pin DIP, 2.54 mm, rows 15.24 mm apart",4.5,"nRF52840 module with LiPo charger and USB-C. Bottom side, components facing down, on 2.5 mm low-profile headers; no headers on the 3 inner pins (P1.01, P1.02, P1.07)"
+LCD,1,Waveshare 1.69inch LCD Module (ST7789V2 240x280),Waveshare,,module,9.0,"Screen, sits in the case window"
+BT1,1,"603040 LiPo 3.7 V ~800 mAh, JST-PH lead",,,pouch cell,6.0,"Under the display band, on the bottom plate"

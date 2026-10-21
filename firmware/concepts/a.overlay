@@ -1,0 +1,27 @@
+/*
+ * Concept A on the Pro Micro: 1.69" screen, 3 x 3 keys. Matrix 3 rows x 4 columns:
+ * columns 0-2 are keys, column 3 row 0 is the knob push. COL4 (P0.31) is unused.
+ */
+
+#include "a_display.overlay"
+
+&kbd_matrix {
+	col-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>,
+		    <&gpio1 11 GPIO_ACTIVE_LOW>,
+		    <&gpio1 13 GPIO_ACTIVE_LOW>,
+		    <&gpio0 29 GPIO_ACTIVE_LOW>;
+};
+
+&kbd_keymap {
+	col-size = <4>;
+	keymap = <MATRIX_KEY(0, 0, INPUT_KEY_F13)
+		  MATRIX_KEY(0, 1, (INPUT_KEY_F13 + 1))
+		  MATRIX_KEY(0, 2, (INPUT_KEY_F13 + 2))
+		  MATRIX_KEY(1, 0, (INPUT_KEY_F13 + 3))
+		  MATRIX_KEY(1, 1, (INPUT_KEY_F13 + 4))
+		  MATRIX_KEY(1, 2, (INPUT_KEY_F13 + 5))
+		  MATRIX_KEY(2, 0, (INPUT_KEY_F13 + 6))
+		  MATRIX_KEY(2, 1, (INPUT_KEY_F13 + 7))
+		  MATRIX_KEY(2, 2, (INPUT_KEY_F13 + 8))
+		  MATRIX_KEY(0, 3, (INPUT_KEY_F13 + 16))>;
+};

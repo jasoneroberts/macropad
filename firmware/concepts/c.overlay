@@ -1,0 +1,38 @@
+/*
+ * Concept C on the Pro Micro: round screen, 4 x 4 keys. Matrix 4 rows x 5 columns:
+ * columns 0-3 are keys, column 4 row 0 is the knob push. ROW3 is P0.08 (D0).
+ */
+
+#include "c_display.overlay"
+
+&lcd {
+	mipi-max-frequency = <16000000>;
+};
+
+&kbd_matrix {
+	row-gpios = <&gpio1 0 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>,
+		    <&gpio0 11 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>,
+		    <&gpio1 4 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>,
+		    <&gpio0 8 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+};
+
+&kbd_keymap {
+	row-size = <4>;
+	keymap = <MATRIX_KEY(0, 0, INPUT_KEY_F13)
+		  MATRIX_KEY(0, 1, (INPUT_KEY_F13 + 1))
+		  MATRIX_KEY(0, 2, (INPUT_KEY_F13 + 2))
+		  MATRIX_KEY(0, 3, (INPUT_KEY_F13 + 3))
+		  MATRIX_KEY(1, 0, (INPUT_KEY_F13 + 4))
+		  MATRIX_KEY(1, 1, (INPUT_KEY_F13 + 5))
+		  MATRIX_KEY(1, 2, (INPUT_KEY_F13 + 6))
+		  MATRIX_KEY(1, 3, (INPUT_KEY_F13 + 7))
+		  MATRIX_KEY(2, 0, (INPUT_KEY_F13 + 8))
+		  MATRIX_KEY(2, 1, (INPUT_KEY_F13 + 9))
+		  MATRIX_KEY(2, 2, (INPUT_KEY_F13 + 10))
+		  MATRIX_KEY(2, 3, (INPUT_KEY_F13 + 11))
+		  MATRIX_KEY(3, 0, (INPUT_KEY_F13 + 12))
+		  MATRIX_KEY(3, 1, (INPUT_KEY_F13 + 13))
+		  MATRIX_KEY(3, 2, (INPUT_KEY_F13 + 14))
+		  MATRIX_KEY(3, 3, (INPUT_KEY_F13 + 15))
+		  MATRIX_KEY(0, 4, (INPUT_KEY_F13 + 16))>;
+};

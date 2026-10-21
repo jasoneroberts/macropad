@@ -1,0 +1,41 @@
+Designator,Layer,X mm,Y mm,Rotation,Footprint,Note
+C1,Bottom,79.00,76.65,0,0805,"ENC_A to GND, close to ENC1"
+C2,Bottom,87.00,76.65,0,0805,"ENC_B to GND, close to ENC1"
+C3,Bottom,6.50,74.65,90,0805,next to J2 pin 1
+D1,Bottom,21.93,50.12,0,SOD-123,cathode (bar) toward +x
+D2,Bottom,40.98,50.12,0,SOD-123,cathode (bar) toward +x
+D3,Bottom,60.02,50.12,0,SOD-123,cathode (bar) toward +x
+D4,Bottom,79.08,50.12,0,SOD-123,cathode (bar) toward +x
+D5,Bottom,21.93,31.08,0,SOD-123,cathode (bar) toward +x
+D6,Bottom,40.98,31.08,0,SOD-123,cathode (bar) toward +x
+D7,Bottom,60.02,31.08,0,SOD-123,cathode (bar) toward +x
+D8,Bottom,79.08,31.08,0,SOD-123,cathode (bar) toward +x
+D9,Bottom,21.93,12.02,0,SOD-123,cathode (bar) toward +x
+D10,Bottom,40.98,12.02,0,SOD-123,cathode (bar) toward +x
+D11,Bottom,60.02,12.02,0,SOD-123,cathode (bar) toward +x
+D12,Bottom,79.08,12.02,0,SOD-123,cathode (bar) toward +x
+D13,Bottom,70.00,108.15,0,SOD-123,"knob push diode, cathode toward +x"
+ENC1,Top,83.00,87.65,0,EC11_SW,"A/C/B pins toward the front (-y), switch pins toward the back. Trim all pins flush underneath (U1 sits under it)"
+H1,Both,31.45,27.05,0,HOLE_2.2,already in the DXF outline
+H2,Both,31.45,46.10,0,HOLE_2.2,already in the DXF outline
+H3,Both,69.55,27.05,0,HOLE_2.2,already in the DXF outline
+H4,Both,69.55,46.10,0,HOLE_2.2,already in the DXF outline
+J1,Bottom,73.00,53.92,0,JST_PH_2_V,pin 1 = BAT+
+J2,Bottom,6.50,87.65,90,PADS_1x8_2.54,pin 1 (VCC) at the -y end
+SW1,Top,21.93,55.62,0,MX_HOTSWAP,"row 0 col 0; switch pins toward +y (back), socket on the bottom"
+SW2,Top,40.98,55.62,0,MX_HOTSWAP,"row 0 col 1; switch pins toward +y (back), socket on the bottom"
+SW3,Top,60.02,55.62,0,MX_HOTSWAP,"row 0 col 2; switch pins toward +y (back), socket on the bottom"
+SW4,Top,79.08,55.62,0,MX_HOTSWAP,"row 0 col 3; switch pins toward +y (back), socket on the bottom"
+SW5,Top,21.93,36.58,0,MX_HOTSWAP,"row 1 col 0; switch pins toward +y (back), socket on the bottom"
+SW6,Top,40.98,36.58,0,MX_HOTSWAP,"row 1 col 1; switch pins toward +y (back), socket on the bottom"
+SW7,Top,60.02,36.58,0,MX_HOTSWAP,"row 1 col 2; switch pins toward +y (back), socket on the bottom"
+SW8,Top,79.08,36.58,0,MX_HOTSWAP,"row 1 col 3; switch pins toward +y (back), socket on the bottom"
+SW9,Top,21.93,17.52,0,MX_HOTSWAP,"row 2 col 0; switch pins toward +y (back), socket on the bottom"
+SW10,Top,40.98,17.52,0,MX_HOTSWAP,"row 2 col 1; switch pins toward +y (back), socket on the bottom"
+SW11,Top,60.02,17.52,0,MX_HOTSWAP,"row 2 col 2; switch pins toward +y (back), socket on the bottom"
+SW12,Top,79.08,17.52,0,MX_HOTSWAP,"row 2 col 3; switch pins toward +y (back), socket on the bottom"
+SW_PWR,Bottom,96.30,72.00,90,SLIDE_RA,"actuator toward +x through the right wall, matches power_switch() in macropad.scad"
+SW_RST,Bottom,73.00,77.25,0,TACT_6x3.5,only needed to recover a bricked board
+TP1,Bottom,78.00,74.25,0,TP_1.5,DBG_TX
+TP2,Bottom,84.00,77.25,0,TP_1.5,GND
+U1,Bottom,82.00,96.25,0,PRO_MICRO_24,Mirrored by Altium on the bottom layer. USB-C end toward +y (back wall)
