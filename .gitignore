@@ -1,0 +1,11 @@
+# Made by tools/build.py and tools/make_page.py (see README.md)
+stl/*/view/
+build/*.echo
+page/
+
+# Firmware build folders (west build -d build_dk, build_pm, ...)
+build_*/
+
+__pycache__/
+*.pyc
+.vscode/
