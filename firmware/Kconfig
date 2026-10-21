@@ -1,0 +1,56 @@
+# SPDX-License-Identifier: Apache-2.0
+
+# USB device helper options (CONFIG_SAMPLE_USBD_*), shared with the trackball
+source "samples/subsys/usb/common/Kconfig.sample_usbd"
+
+menu "Macropad"
+
+config MACROPAD_KEY_ROWS
+	int "Rows of keys"
+	default 3
+	range 1 4
+	help
+	  Rows of MX keys on the case. Row 0 is the back row, next to the screen.
+	  Concept A 3, B 3, C 4.
+
+config MACROPAD_KEY_COLS
+	int "Columns of keys"
+	default 4
+	range 1 4
+	help
+	  Columns of MX keys. Concept A 3, B 4, C 4. Key n (row * cols + col)
+	  arrives as input code INPUT_KEY_F13 + n; the knob push is always
+	  key 16 (INPUT_KEY_F13 + 16).
+
+config MACROPAD_UI_INSET
+	int "Screen margin in pixels"
+	default 0
+	help
+	  Empty border around the tile grid. Use about 34 on the round GC9A01
+	  (concept C) so the corner tiles stay inside the circle.
+
+config MACROPAD_SCREEN_TIMEOUT_S
+	int "Screen off after this many seconds without input"
+	default 60
+	help
+	  The backlight is the biggest battery drain. Any key or knob turn wakes
+	  the screen. 0 keeps it on.
+
+config MACROPAD_BACKLIGHT_PERCENT
+	int "Backlight brightness (percent)"
+	default 70
+	range 1 100
+
+config MACROPAD_BATTERY_OFFSET_MV
+	int "Battery reading correction (mV)"
+	default 0
+	range -500 500
+	help
+	  Added to every battery reading. The SuperMini measures the LiPo on
+	  its VDDH pin, which can sit a little below the cell itself. Compare
+	  the "Battery ... mV" log line with a multimeter across the LiPo
+	  (unplugged from USB) and put the difference here.
+
+endmenu
+
+source "Kconfig.zephyr"

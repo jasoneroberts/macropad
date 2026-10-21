@@ -1,0 +1,53 @@
+name: Firmware
+
+# Builds all six firmware variants (concepts A, B and C, for the nRF52840 DK and
+# the SuperMini / Pro Micro) with NCS v3.3.0 and the distro's arm-none-eabi-gcc,
+# using tools/build_firmware.sh. The concept B images are kept on the run's page
+# under "Artifacts".
+on:
+  push:
+    paths: ['firmware/**', 'tools/build_firmware.sh', '.github/workflows/firmware.yml']
+  pull_request:
+    paths: ['firmware/**', 'tools/build_firmware.sh', '.github/workflows/firmware.yml']
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: app
+      - name: Toolchain
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q gcc-arm-none-eabi libnewlib-arm-none-eabi ninja-build device-tree-compiler gperf
+          pip install --user west
+      - name: NCS v3.3.0 cache
+        uses: actions/cache@v4
+        with:
+          path: ncs
+          key: ncs-v3.3.0-narrow-1
+      - name: NCS v3.3.0
+        run: |
+          if [ ! -d ncs/.west ]; then
+            west init -m https://github.com/nrfconnect/sdk-nrf --mr v3.3.0 ncs
+          fi
+          cd ncs
+          west config manifest.group-filter -- -homekit,-matter,-thread,-babblesim,-sidewalk,-nrf-802154,-find-my,-dragoon,-ci,-optional,-bsim,-tools
+          west update --narrow -o=--depth=1
+          pip install --user -q -r zephyr/scripts/requirements-base.txt -r nrf/scripts/requirements-build.txt
+      - name: Build
+        run: NCS="$GITHUB_WORKSPACE/ncs" OUT="$GITHUB_WORKSPACE/out" bash app/tools/build_firmware.sh
+      - name: Logs of the failed builds
+        if: failure()
+        run: |
+          for f in out/*.log; do
+            echo "::group::$f"
+            tail -n 80 "$f"
+            echo "::endgroup::"
+          done
+      - name: Keep the concept B images
+        uses: actions/upload-artifact@v4
+        with:
+          name: macropad-B-firmware
+          path: app/firmware/prebuilt/

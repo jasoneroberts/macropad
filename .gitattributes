@@ -1,0 +1,9 @@
+# Generated files: keep them out of diffs and language stats
+*.stl  -diff linguist-generated
+*.dxf  -diff linguist-generated
+*.glb  binary
+*.uf2  binary
+*.hex  -diff
+build/*.json linguist-generated
+build/*.svg  linguist-generated
+pcb/*/*      linguist-generated

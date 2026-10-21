@@ -1,0 +1,20 @@
+/*
+ * Concept A screen: Waveshare 1.69inch LCD Module (ST7789V2, 240 x 280, portrait).
+ * The controller has 320 rows of RAM and the glass shows rows 20-299, hence y-offset.
+ * Init values from Waveshare's demo code. Use on its own on the DK, or through a.overlay.
+ */
+
+&lcd {
+	width = <240>;
+	height = <280>;
+	x-offset = <0>;
+	y-offset = <20>;
+	vcom = <0x35>;
+	gctrl = <0x11>;
+	vrhs = <0x0d>;
+	vdvs = <0x20>;
+	mdac = <0x00>;
+	porch-param = [0b 0b 00 33 35];
+	pvgam-param = [f0 06 0b 0a 09 26 29 33 41 18 16 15 29 2d];
+	nvgam-param = [f0 04 08 08 07 03 28 32 40 3b 19 18 2a 2e];
+};
