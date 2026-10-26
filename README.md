@@ -33,7 +33,7 @@ Heights are without the 10 mm rubber feet (add about 2 mm).
 | `firmware/` | Zephyr / NCS v3.3.0 app: keys, knob, LVGL screen, USB + Bluetooth HID. See `firmware/README.md`. |
 | `firmware/prebuilt/` | Ready-to-flash concept B images: `macropad_B_promicro.uf2` and `macropad_B_dk.hex`. GitHub Actions also builds them on every firmware change (the run's "Artifacts"). |
 | `pcb/` | `generate.py` and, per concept, BOM, netlist, placement and outline for Altium. See `pcb/README.md`. |
-| `SHOPPING.md` | What to buy for B (UK prices) and what to measure when it arrives. |
+| `SHOPPING.md` | One AliExpress basket for B (rough UK prices) and what to measure when it arrives. |
 | `LICENSES/` | Upstream licences for the files based on Nordic and Zephyr samples (see "Licences" below). |
 
 ## Rebuild after changing a parameter
