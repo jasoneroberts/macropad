@@ -3,7 +3,7 @@
 
     /usr/bin/python3 pcb/library/src/check_boards.py [board.kicad_pcb ...]
 
-With no arguments it checks the macropad (pcb/B/kicad) and, if present, the Gameball carrier
+Takes .kicad_pcb or Altium .PcbDoc files. With no arguments it checks the macropad (pcb/B/kicad) and, if present, the Gameball carrier
 (/mnt/project-files/pcb/kicad). "Identical" means the same pad numbers, positions, sizes, shapes, drills and layer
 sets, measured in the footprint's own frame (orientation and side taken out), so a part that is rotated or on the
 bottom layer on the board still compares equal. Run it after editing a footprint here, and before relinking an
@@ -48,18 +48,29 @@ def libfp(name, cache={}):
     return cache[name]
 
 
-def same(a, b):
+def same(a, b, loose=False):
+    """Exact for KiCad boards. loose (Altium boards, which went through EAGLE): pad number, position and drill must
+    match; the pad's narrow width within 5 %, because EAGLE has only round pads and Altium re-draws pin 1 slightly small."""
     if len(a) != len(b):
         return False, f"{len(a)} pads on the board, {len(b)} in JR"
     bad = []
     for ra, rb in zip(a, b):
-        if ra[0] != rb[0] or any(abs(ra[i] - rb[i]) > TOL for i in range(1, 7)) or ra[7:] != rb[7:]:
+        if loose:
+            ok = (ra[0] == rb[0] and all(abs(ra[i] - rb[i]) <= TOL for i in (1, 2, 5, 6))
+                  and abs(min(ra[3], ra[4]) - min(rb[3], rb[4])) <= 0.05 * min(rb[3], rb[4]))
+        else:
+            ok = ra[0] == rb[0] and all(abs(ra[i] - rb[i]) <= TOL for i in range(1, 7)) and ra[7:] == rb[7:]
+        if not ok:
             bad.append(f"pad {ra[0]}: board {ra[1:7]} vs JR {rb[1:7]}")
     return not bad, "; ".join(bad[:4])
 
 
 def check(path):
-    b = pcbnew.LoadBoard(path)
+    altium = path.lower().endswith(".pcbdoc")
+    if altium:                                   # an Altium board, read through KiCad's Altium importer
+        b = pcbnew.IO_MGR.Load(pcbnew.IO_MGR.ALTIUM_DESIGNER, path)
+    else:
+        b = pcbnew.LoadBoard(path)
     seen = {}
     print(f"\n{os.path.basename(path)}: {len(b.GetFootprints())} footprints")
     problems = 0
@@ -72,7 +83,7 @@ def check(path):
             print(f"  {ref:8s} {name}: NOT IN JR")
             problems += 1
             continue
-        ok, why = same(pads_of(fp), pads_of(libfp(name)))
+        ok, why = same(pads_of(fp), pads_of(libfp(name)), loose=altium)
         seen.setdefault(name, []).append((ref, ok, why))
     for name, lst in sorted(seen.items()):
         bad = [(r, w) for r, ok, w in lst if not ok]
