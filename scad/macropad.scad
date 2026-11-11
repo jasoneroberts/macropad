@@ -78,9 +78,9 @@ clamp_t      = 2.0;
 clamp_rim    = 2.5;    // how far the clamp frame reaches under the module board
 
 // ---- controller: Pro Micro size nRF52840 (nice!nano v2 / SuperMini clone) ----
-mcu_size     = [18.0, 33.0, 1.0];   // x, y, board thickness
+mcu_size     = [18.3, 33.0, 1.6];   // x, y, board thickness (SuperMini: 1.6 mm PCB, 34.1 mm long with the USB-C)
 mcu_gap      = 2.5;    // header plastic between the main PCB and the controller
-usb_size     = [8.94, 7.35, 3.26];  // USB-C receptacle w, depth, height
+usb_size     = [8.94, 7.35, 3.26];  // USB-C receptacle w, depth, height; mid-mount, centred on the board's thickness
 usb_slot     = [13.0, 7.5];         // wall opening, sized for the cable overmould
 
 // ---- LiPo ----
@@ -117,8 +117,9 @@ CFG_A = [ ["name","A - Pocket"], ["cols",3], ["rows",3], ["tilt",6],
 CFG_B = [ ["name","B - Studio"], ["cols",4], ["rows",3], ["tilt",6],
           ["W",101.0], ["m_front",8], ["band_gap",4], ["band_h",37], ["m_back",10],
           ["disp",LCD200], ["disp_c",[44.5,87.65]],
-          ["enc_c",[83.0,87.65]], ["knob_d",28],
-          ["mcu_x",82.0], ["sw_y",72], ["lipo",LIPO_603040], ["bat",[39,88,90]] ];
+          ["enc_c",[82.0,87.65]], ["knob_d",28],
+          ["mcu_x",82.0], ["sw_y",72], ["lipo",LIPO_603040], ["bat",[39,88,90]],
+          ["pcb_open",true] ];
 CFG_C = [ ["name","C - Deck"], ["cols",4], ["rows",4], ["tilt",7],
           ["W",92.2], ["m_front",8], ["band_gap",4], ["band_h",41.5], ["m_back",10],
           ["disp",GC9A01], ["disp_c",[27.05,108.95]],
@@ -167,13 +168,15 @@ z_pcb_top  = -plate_to_pcb;
 z_pcb_bot  = z_pcb_top - pcb_t;
 z_mcu_top  = z_pcb_bot - mcu_gap;              // controller back face (pads only)
 z_mcu_bot  = z_mcu_top - mcu_size[2];          // component side faces down
-z_usb      = z_mcu_bot - usb_size[2] / 2;
+z_usb      = z_mcu_top - mcu_size[2] / 2;      // mid-mount USB-C: centred on the controller board
 usb_face_y = L - wall - 0.2;
 mcu_c      = [cfg("mcu_x"), usb_face_y - 0.8 - mcu_size[1] / 2];
 
-// power switch on the PCB underside at the right edge
-psw_size = [3.5, 8.6, 3.5];
-z_psw    = z_pcb_bot - psw_size[2] / 2;
+// power switch on the PCB underside at the right edge: C&K OS102011MA1QN1, body 4.4 deep x 8.6 long x 3.5 tall,
+// actuator 2 x 4 mm sliding 2 mm along the wall; body face 0.7 mm inside the wall, so the tip stands 0.9 mm proud
+psw_size   = [4.4, 8.6, 3.5];
+psw_face_x = W - wall - 0.7;
+z_psw      = z_pcb_bot - psw_size[2] / 2;
 
 // corner bosses: plate xy where they meet the skin underside
 BOSSES = [ [boss_inset, boss_inset], [W - boss_inset, boss_inset],
@@ -219,11 +222,26 @@ module clamp_2d() {
     }
 }
 
+// Where the display module passes the PCB. Concept B opens it to the back and left edges (a strip that thin would
+// only flex) and dips around the front clamp pillar with 0.5 mm clearance: the same shape as pcb/board/design_b.py.
+module pcb_display_cut() {
+    if (search(["pcb_open"], concept == "A" ? CFG_A : concept == "B" ? CFG_B : CFG_C)[0] != [] && cfg("pcb_open")) {
+        x0 = board_c[0] - dsp("board")[0] / 2 - 1;
+        x1 = board_c[0] + dsp("board")[0] / 2 + 1;
+        y0 = board_y0 - 1;
+        translate([-1, y0]) square([x1 + 1, L + 1 - y0]);
+        hull() {
+            translate([x0, y0]) square([x1 - x0, 0.01]);
+            translate(DPILLARS[0]) circle(d = dpillar_d + 1, $fn = 64);
+        }
+    } else offset(delta = 1) hull() { board_2d(); for (p = DPILLARS) translate(p) circle(d = dpillar_d + 1); }
+}
+
 module pcb_2d() {
     difference() {
         offset(r = -(wall + 0.5)) outline();
-        offset(delta = 1) hull() { board_2d(); for (p = DPILLARS) translate(p) circle(d = dpillar_d + 1); }
-        for (b = BOSSES) translate(b) circle(d = boss_d + 2, $fn = 32);
+        pcb_display_cut();
+        for (b = BOSSES) translate(b) circle(d = boss_d + 0.8, $fn = 32);
         for (k = KEYS) translate(k) circle(d = 4.0, $fn = 24);          // MX centre pin hole
         for (p = PILLARS) translate(p) circle(d = 2.2, $fn = 16);       // M2 clearance
     }
@@ -308,6 +326,12 @@ module top_shell() {
             }
             to_desk() shell_cuts_plate();
             boss_holes_desk();
+            // 0.4 mm all round the PCB edge at board height. The bosses stand vertical on the desk while the PCB
+            // tilts with the plate, so where the board passes a boss it sits up to 0.45 mm nearer the front of
+            // the notch; this trims that sliver off the boss instead of growing the notch into the copper.
+            // (Nothing else of the shell comes within 1 mm inside the board edge at that height.)
+            to_desk() translate([0, 0, z_pcb_bot - 0.3]) linear_extrude(pcb_t + 0.6)
+                difference() { offset(r = 0.4) pcb_2d(); offset(r = -1.0) pcb_2d(); }
         }
         above_floor();
     }
@@ -437,7 +461,7 @@ module display() {
 module mcu() {
     translate([mcu_c[0], mcu_c[1], z_mcu_bot]) linear_extrude(mcu_size[2]) square([mcu_size[0], mcu_size[1]], center = true);
     // USB-C receptacle on the downward-facing component side, at the back edge
-    translate([mcu_c[0] - usb_size[0] / 2, usb_face_y - usb_size[1], z_mcu_bot - usb_size[2]]) cube(usb_size);
+    translate([mcu_c[0] - usb_size[0] / 2, usb_face_y - usb_size[1], z_usb - usb_size[2] / 2]) cube(usb_size);
     // two 12-pin header strips between the PCB and the controller
     for (s = [-1, 1]) translate([mcu_c[0] + s * 7.62 - 1.27, mcu_c[1] - 15.24, z_mcu_top + 0.02]) cube([2.54, 30.48, mcu_gap - 0.04]);
 }
@@ -445,9 +469,9 @@ module battery() {
     bat = cfg("bat"); lipo = cfg("lipo");
     translate([bat[0], bat[1], bottom_t + 0.05]) rotate(bat[2]) linear_extrude(lipo[0]) crect([lipo[1], lipo[2]], 1);
 }
-module power_switch() translate([W - wall - 0.3 - psw_size[0], cfg("sw_y") - psw_size[1] / 2, z_psw - psw_size[2] / 2]) {
+module power_switch() translate([psw_face_x - psw_size[0], cfg("sw_y") - psw_size[1] / 2, z_psw - psw_size[2] / 2]) {
     cube(psw_size - [0, 0, 0.02]);
-    translate([psw_size[0], psw_size[1] / 2 - 0.75, psw_size[2] / 2 - 0.75]) cube([3.0, 1.5, 1.5]);
+    translate([psw_size[0], psw_size[1] / 2 - 1.0, psw_size[2] / 2 - 0.75]) cube([4.0, 2.0, 1.5]);
 }
 
 /* REPORT: numbers for the comparison page (printed with echo) */

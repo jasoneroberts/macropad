@@ -2,16 +2,18 @@
  * Macropad concept B on a Pro Micro-size nRF52840 (nice!nano v2 / SuperMini clone).
  * Board: promicro_nrf52840/nrf52840/uf2 (Adafruit UF2 bootloader, app at 0x26000).
  *
- * Pin map (nRF pin, Pro Micro label, footprint pin). The SPI clock and data use
- * full-speed pins; everything slow (matrix, knob, backlight, reset) uses the pins
- * Nordic marks "low frequency I/O only".
+ * Pin map (nRF pin, Pro Micro label, footprint pin), the same as pcb/board/design_b.py.
+ * The SPI clock and data use full-speed pins; everything slow (matrix, knob) uses the
+ * pins Nordic marks "low frequency I/O only". Footprint pins 5-10 carry the LCD's six
+ * signals in the order of the Waveshare cable (DIN, CLK, CS, DC, RST, BL), so on the
+ * PCB they run straight across to J2 pins 3-8.
  *
- *   LCD SCK   P0.17  D2   5     ROW0  P1.00  D6   9      COL0  P1.06  D9   12
- *   LCD MOSI  P0.20  D3   6     ROW1  P0.11  D7   10     COL1  P1.11  D14  15
+ *   LCD MOSI  P0.17  D2   5     ROW0  P1.15  D18  17     COL0  P1.06  D9   12
+ *   LCD SCK   P0.20  D3   6     ROW1  P0.02  D19  18     COL1  P1.11  D14  15
  *   LCD CS    P0.22  D4   7     ROW2  P1.04  D8   11     COL2  P1.13  D15  16
  *   LCD DC    P0.24  D5   8     (ROW3 P0.08  D0   2, concept C only)
- *   LCD RST   P1.15  D18  17                              COL3  P0.29  D20  19
- *   LCD BL    P0.02  D19  18    KNOB A P0.09 D10  13      COL4  P0.31  D21  20
+ *   LCD RST   P1.00  D6   9                               COL3  P0.29  D20  19
+ *   LCD BL    P0.11  D7   10    KNOB A P0.09 D10  13      COL4  P0.31  D21  20
  *   (debug TX P0.06  D1   1)    KNOB B P0.10 D16  14
  *
  * The knob sits on the two NFC pins: both rest high (pull-ups, open contacts at a
@@ -61,8 +63,8 @@
 
 	kbd_matrix: kbd_matrix {
 		compatible = "gpio-kbd-matrix";
-		row-gpios = <&gpio1 0 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>,
-			    <&gpio0 11 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>,
+		row-gpios = <&gpio1 15 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>,
+			    <&gpio0 2 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>,
 			    <&gpio1 4 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
 		col-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>,
 			    <&gpio1 11 GPIO_ACTIVE_LOW>,
@@ -117,7 +119,7 @@
 		compatible = "zephyr,mipi-dbi-spi";
 		spi-dev = <&spi3>;
 		dc-gpios = <&gpio0 24 GPIO_ACTIVE_HIGH>;
-		reset-gpios = <&gpio1 15 GPIO_ACTIVE_LOW>;
+		reset-gpios = <&gpio1 0 GPIO_ACTIVE_LOW>;
 		write-only;
 		#address-cells = <1>;
 		#size-cells = <0>;
@@ -204,29 +206,29 @@
 &pinctrl {
 	lcd_spi_default: lcd_spi_default {
 		group1 {
-			psels = <NRF_PSEL(SPIM_SCK, 0, 17)>,
-				<NRF_PSEL(SPIM_MOSI, 0, 20)>;
+			psels = <NRF_PSEL(SPIM_SCK, 0, 20)>,
+				<NRF_PSEL(SPIM_MOSI, 0, 17)>;
 			nordic,drive-mode = <NRF_DRIVE_H0H1>;
 		};
 	};
 
 	lcd_spi_sleep: lcd_spi_sleep {
 		group1 {
-			psels = <NRF_PSEL(SPIM_SCK, 0, 17)>,
-				<NRF_PSEL(SPIM_MOSI, 0, 20)>;
+			psels = <NRF_PSEL(SPIM_SCK, 0, 20)>,
+				<NRF_PSEL(SPIM_MOSI, 0, 17)>;
 			low-power-enable;
 		};
 	};
 
 	lcd_bl_pwm_default: lcd_bl_pwm_default {
 		group1 {
-			psels = <NRF_PSEL(PWM_OUT0, 0, 2)>;
+			psels = <NRF_PSEL(PWM_OUT0, 0, 11)>;
 		};
 	};
 
 	lcd_bl_pwm_sleep: lcd_bl_pwm_sleep {
 		group1 {
-			psels = <NRF_PSEL(PWM_OUT0, 0, 2)>;
+			psels = <NRF_PSEL(PWM_OUT0, 0, 11)>;
 			low-power-enable;
 		};
 	};
