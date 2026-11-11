@@ -182,10 +182,11 @@ def supermini():
 
 def xiao():
     # Seeed numbering: 1-7 = D0-D6 down the left edge, 8-14 = D7-D10, 3V3, GND, 5V up the right edge (top view, USB up)
-    left = [(1, "P0.02"), (2, "P0.03"), (3, "P0.28"), (4, "P0.29"), (5, "P0.04"), (6, "P0.05"), (7, "P1.11"),
-            (15, "SWDIO"), (16, "SWCLK"), (17, "RST"), (18, "GND")]
-    right = [(14, "5V"), (13, "GND"), (12, "3V3"), (11, "P1.15"), (10, "P1.14"), (9, "P1.13"), (8, "P1.12"),
-             (19, "BAT+"), (20, "BAT-")]
+    # pin names carry both labels, as the carrier's schematic and firmware overlay use them (D0/P0.02, ...)
+    left = [(1, "D0/P0.02"), (2, "D1/P0.03"), (3, "D2/P0.28"), (4, "D3/P0.29"), (5, "D4/P0.04"), (6, "D5/P0.05"),
+            (7, "D6/P1.11"), (15, "SWDIO"), (16, "SWCLK"), (17, "RST"), (18, "GND")]
+    right = [(14, "5V"), (13, "GND"), (12, "3V3"), (11, "D10/P1.15"), (10, "D9/P1.14"), (9, "D8/P1.13"),
+             (8, "D7/P1.12"), (19, "BAT+"), (20, "BAT-")]
     return module("XIAO_nRF52840", "Seeed XIAO nRF52840, castellated, with SWD and battery pads", left, right)
 
 

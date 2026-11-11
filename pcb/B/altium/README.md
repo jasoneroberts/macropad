@@ -59,6 +59,8 @@ In Altium terms you end up with:
 - `JR.LibPkg`: an *integrated library package*, a small project that lists those two files.
 - `JR.IntLib`: the compiled, read-only library that designs place parts from. You recompile it after every edit.
 
+The same files, with the Gameball relink table and a parts preview, are in `WirelessTrackballProject\PCB\JR-library\`; use that copy for every board. Once `JR.IntLib` exists, install it for all projects: Components panel menu » **File-based Libraries Preferences » Installed » Install**.
+
 Steps:
 
 1. **File » Import Wizard » Next**, pick **EAGLE Projects and Designs**, **Next**.

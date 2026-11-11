@@ -18,6 +18,19 @@ Every component has the same parameters: **Value** (the Comment in Altium), **De
 
 Component names say what you'd search for: type, then value or part number, then package (`C_10u_0805`, `D_1N4148W_SOD-123`, `Q_DMG2305UX_SOT-23`). Designator prefixes follow the usual letters: R, C, D, Q, U, J (connectors you plug into), CN (board-to-board), SW, ENC, TP, H.
 
+## One library for every project
+
+JR is the only library to place parts from, on every board (the macropad, the Gameball carrier and anything later). A fix (a footprint, an LCSC number) is then made once and every board picks it up with Tools » Update From Libraries.
+
+- **Source of truth for the parts:** the generator in `src/` (this repo). It writes `JR.lbr`, which Altium 19 imports. Ask Claude to add or change a part and it rebuilds `JR.lbr`, `JR_parts.csv` and `JR_preview.pdf`.
+- **After the first Altium import:** the Altium files (`JR.SchLib`, `JR.PcbLib`, `JR.IntLib` in `Documents\Projects\AltiumLibrary\`) are the master for anything you edit there. Tell Claude what you changed and it is carried back to the generator, so the two never drift.
+- **Install it once, for all projects:** in Altium, Components panel, the menu at the top right, **File-based Libraries Preferences**, **Installed**, **Install**, pick `JR.IntLib`. It then appears in every project.
+- **New board:** make a new PCB project, place parts from the JR library in the Components panel. A part that isn't in it yet: ask for it (with the LCSC number if you have one) rather than drawing it inside the board, so it joins the library.
+- **Checking it:** `check_boards.py` compares every footprint on a board with the JR footprint of the same name (pad numbers, positions, sizes, drills). It reports 0 differences for the macropad (40 parts) and the Gameball carrier (15 parts), so relinking either board to JR does not move or change a pad.
+- **The Gameball carrier** was built before JR existed, so its parts are generic (`R` with a value, `C`, and so on). `carrier-relink.csv` says which JR part each designator becomes. Do it after the carrier is routed: it changes nothing on the copper, only which library each part comes from, and adds the manufacturer part number and LCSC number to its BOM. The XIAO symbol now shows `D0/P0.02`-style pin names like the carrier's schematic.
+
+Version log: 2026-11-11, 22 parts for the macropad and the carrier (XIAO pins named D0/P0.02 etc.).
+
 ## Parts
 
 | Part | Footprint | LCSC | Used on |
@@ -66,6 +79,7 @@ The library is generated, so it can be checked and rebuilt in the cloud as well 
 ```
 /usr/bin/python3 pcb/library/src/build_library.py       # JR.lbr, JR.pretty, JR.kicad_sym, JR_parts.csv (needs KiCad 7's pcbnew)
 python3 pcb/library/src/preview.py                      # JR_preview.pdf (needs kicad-cli, cairosvg, matplotlib)
+/usr/bin/python3 pcb/library/src/check_boards.py       # every footprint on the macropad and carrier boards still equals JR's
 ```
 
 - `src/jr_parts.py`: the part table (symbol, footprint, value, description, manufacturer, part number, LCSC).

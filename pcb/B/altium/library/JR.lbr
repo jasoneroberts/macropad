@@ -832,13 +832,13 @@
 <wire x1="7.62" y1="-15.24" x2="7.62" y2="15.24" width="0.254" layer="94"/>
 <wire x1="7.62" y1="15.24" x2="-7.62" y2="15.24" width="0.254" layer="94"/>
 <wire x1="-7.62" y1="15.24" x2="-7.62" y2="-15.24" width="0.254" layer="94"/>
-<pin name="P0.02" x="-12.7" y="12.7" visible="both" length="middle" direction="pas" rot="R0"/>
-<pin name="P0.03" x="-12.7" y="10.16" visible="both" length="middle" direction="pas" rot="R0"/>
-<pin name="P0.28" x="-12.7" y="7.62" visible="both" length="middle" direction="pas" rot="R0"/>
-<pin name="P0.29" x="-12.7" y="5.08" visible="both" length="middle" direction="pas" rot="R0"/>
-<pin name="P0.04" x="-12.7" y="2.54" visible="both" length="middle" direction="pas" rot="R0"/>
-<pin name="P0.05" x="-12.7" y="0" visible="both" length="middle" direction="pas" rot="R0"/>
-<pin name="P1.11" x="-12.7" y="-2.54" visible="both" length="middle" direction="pas" rot="R0"/>
+<pin name="D0/P0.02" x="-12.7" y="12.7" visible="both" length="middle" direction="pas" rot="R0"/>
+<pin name="D1/P0.03" x="-12.7" y="10.16" visible="both" length="middle" direction="pas" rot="R0"/>
+<pin name="D2/P0.28" x="-12.7" y="7.62" visible="both" length="middle" direction="pas" rot="R0"/>
+<pin name="D3/P0.29" x="-12.7" y="5.08" visible="both" length="middle" direction="pas" rot="R0"/>
+<pin name="D4/P0.04" x="-12.7" y="2.54" visible="both" length="middle" direction="pas" rot="R0"/>
+<pin name="D5/P0.05" x="-12.7" y="0" visible="both" length="middle" direction="pas" rot="R0"/>
+<pin name="D6/P1.11" x="-12.7" y="-2.54" visible="both" length="middle" direction="pas" rot="R0"/>
 <pin name="SWDIO" x="-12.7" y="-5.08" visible="both" length="middle" direction="pas" rot="R0"/>
 <pin name="SWCLK" x="-12.7" y="-7.62" visible="both" length="middle" direction="pas" rot="R0"/>
 <pin name="RST" x="-12.7" y="-10.16" visible="both" length="middle" direction="pas" rot="R0"/>
@@ -846,10 +846,10 @@
 <pin name="5V" x="12.7" y="12.7" visible="both" length="middle" direction="pas" rot="R180"/>
 <pin name="GND@13" x="12.7" y="10.16" visible="both" length="middle" direction="pas" rot="R180"/>
 <pin name="3V3" x="12.7" y="7.62" visible="both" length="middle" direction="pas" rot="R180"/>
-<pin name="P1.15" x="12.7" y="5.08" visible="both" length="middle" direction="pas" rot="R180"/>
-<pin name="P1.14" x="12.7" y="2.54" visible="both" length="middle" direction="pas" rot="R180"/>
-<pin name="P1.13" x="12.7" y="0" visible="both" length="middle" direction="pas" rot="R180"/>
-<pin name="P1.12" x="12.7" y="-2.54" visible="both" length="middle" direction="pas" rot="R180"/>
+<pin name="D10/P1.15" x="12.7" y="5.08" visible="both" length="middle" direction="pas" rot="R180"/>
+<pin name="D9/P1.14" x="12.7" y="2.54" visible="both" length="middle" direction="pas" rot="R180"/>
+<pin name="D8/P1.13" x="12.7" y="0" visible="both" length="middle" direction="pas" rot="R180"/>
+<pin name="D7/P1.12" x="12.7" y="-2.54" visible="both" length="middle" direction="pas" rot="R180"/>
 <pin name="BAT+" x="12.7" y="-5.08" visible="both" length="middle" direction="pas" rot="R180"/>
 <pin name="BAT-" x="12.7" y="-7.62" visible="both" length="middle" direction="pas" rot="R180"/>
 <text x="-7.62" y="16.256" size="1.778" layer="95" font="vector" ratio="12" rot="R0" align="center-left">&gt;NAME</text>
@@ -872,7 +872,7 @@
 <gates><gate name="G$1" symbol="XIAO_nRF52840" x="0" y="0"/></gates>
 <devices>
 <device name="" package="XIAO_nRF52840_SMD">
-<connects><connect gate="G$1" pin="P0.02" pad="1"/><connect gate="G$1" pin="P0.03" pad="2"/><connect gate="G$1" pin="P0.28" pad="3"/><connect gate="G$1" pin="P0.29" pad="4"/><connect gate="G$1" pin="P0.04" pad="5"/><connect gate="G$1" pin="P0.05" pad="6"/><connect gate="G$1" pin="P1.11" pad="7"/><connect gate="G$1" pin="P1.12" pad="8"/><connect gate="G$1" pin="P1.13" pad="9"/><connect gate="G$1" pin="P1.14" pad="10"/><connect gate="G$1" pin="P1.15" pad="11"/><connect gate="G$1" pin="3V3" pad="12"/><connect gate="G$1" pin="GND@13" pad="13"/><connect gate="G$1" pin="5V" pad="14"/><connect gate="G$1" pin="SWDIO" pad="15"/><connect gate="G$1" pin="SWCLK" pad="16"/><connect gate="G$1" pin="RST" pad="17"/><connect gate="G$1" pin="GND@18" pad="18"/><connect gate="G$1" pin="BAT+" pad="19"/><connect gate="G$1" pin="BAT-" pad="20"/></connects>
+<connects><connect gate="G$1" pin="D0/P0.02" pad="1"/><connect gate="G$1" pin="D1/P0.03" pad="2"/><connect gate="G$1" pin="D2/P0.28" pad="3"/><connect gate="G$1" pin="D3/P0.29" pad="4"/><connect gate="G$1" pin="D4/P0.04" pad="5"/><connect gate="G$1" pin="D5/P0.05" pad="6"/><connect gate="G$1" pin="D6/P1.11" pad="7"/><connect gate="G$1" pin="D7/P1.12" pad="8"/><connect gate="G$1" pin="D8/P1.13" pad="9"/><connect gate="G$1" pin="D9/P1.14" pad="10"/><connect gate="G$1" pin="D10/P1.15" pad="11"/><connect gate="G$1" pin="3V3" pad="12"/><connect gate="G$1" pin="GND@13" pad="13"/><connect gate="G$1" pin="5V" pad="14"/><connect gate="G$1" pin="SWDIO" pad="15"/><connect gate="G$1" pin="SWCLK" pad="16"/><connect gate="G$1" pin="RST" pad="17"/><connect gate="G$1" pin="GND@18" pad="18"/><connect gate="G$1" pin="BAT+" pad="19"/><connect gate="G$1" pin="BAT-" pad="20"/></connects>
 <technologies><technology name=""><attribute name="MANUFACTURER" value="Seeed Studio"/><attribute name="MPN" value="102010448"/><attribute name="DESCRIPTION" value="nRF52840 module with LiPo charger, 3V3 regulator, USB-C; castellated edge, SWD and battery pads"/></technology></technologies>
 </device>
 </devices>
