@@ -19,6 +19,7 @@ Rough time: 30 minutes for the library and the import, 20 minutes for checks and
 | `import-eagle/macropad_B.sch`, `macropad_B.brd` | **The design**, as EAGLE files for Altium 19's Import Wizard (Step 2). |
 | `library/JR.lbr` | The whole JR component library (22 parts, the macropad's and the trackball carrier's) for Step 1. The same file is in `pcb/library/` in the repo. |
 | `library/JR_parts.csv` | The library's part list: symbol, footprint, value, description, manufacturer, part number, LCSC number. |
+| `library/JR_preview.pdf` | One page per library part: symbol, footprint and parameters. |
 | `reference/macropad_B-schematic.pdf` | The schematic (A3), to read alongside the imported one. |
 | `reference/macropad_B-board.pdf` | The board from the top: red = top copper, blue = bottom copper, shaded = pours. |
 | `reference/placement.csv` | Every part's side, X, Y, rotation and pin 1 position. |

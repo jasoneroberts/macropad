@@ -241,8 +241,9 @@ for d in (IMP, REF, LIBO):
     os.makedirs(d, exist_ok=True)
 open(os.path.join(IMP, NAME + ".brd"), "w").write(brd)
 open(os.path.join(IMP, NAME + ".sch"), "w").write(sch)
-for fn in ("JR.lbr", "JR_parts.csv"):
-    shutil.copyfile(os.path.join(LIBDIR, fn), os.path.join(LIBO, fn))
+for fn in ("JR.lbr", "JR_parts.csv", "JR_preview.pdf"):
+    if os.path.exists(os.path.join(LIBDIR, fn)):
+        shutil.copyfile(os.path.join(LIBDIR, fn), os.path.join(LIBO, fn))
 S.render(sh, os.path.join(REF, NAME + "-schematic.pdf"))
 with open(os.path.join(REF, "connections.csv"), "w", newline="") as fh:
     w = csv.writer(fh)
