@@ -51,7 +51,7 @@ EAGLE has a few rules that shape what you'll see after the import. None of them 
 
 ## Step 1: Install the JR library (once, for every design)
 
-The JR library is your own component library: one symbol per kind of part (a resistor, a diode, the SuperMini), one footprint per package, and one *component* per orderable part that ties a symbol to a footprint and carries the part data (value, description, manufacturer, part number, LCSC number). The macropad and the carrier both use it, and new designs can too. It lives in `J:\Engineering\PCB Design\Altium\Libraries\`.
+The JR library is your own component library: one symbol per kind of part (a resistor, a diode, the SuperMini), one footprint per package, and one *component* per orderable part that ties a symbol to a footprint and carries the part data (value, description, manufacturer, part number, LCSC number). The macropad and the carrier both use it, and new designs can too. It lives in `D:\Jase\Nas\Engineering\PCB Design\Altium\Libraries\`.
 
 In Altium terms you end up with:
 
@@ -59,18 +59,18 @@ In Altium terms you end up with:
 - `JR.LibPkg`: an *integrated library package*, a small project that lists those two files.
 - `JR.IntLib`: the compiled, read-only library that designs place parts from. You recompile it after every edit.
 
-The same files, with the Gameball relink table and a parts preview, are in `J:\Engineering\PCB Design\Altium\Libraries\`; use that copy for every board. Once `JR.IntLib` exists, install it for all projects: Components panel menu » **File-based Libraries Preferences » Installed » Install**.
+The same files, with the Gameball relink table and a parts preview, are in `D:\Jase\Nas\Engineering\PCB Design\Altium\Libraries\`; use that copy for every board. Once `JR.IntLib` exists, install it for all projects: Components panel menu » **File-based Libraries Preferences » Installed » Install**.
 
 Steps:
 
 1. **File » Import Wizard » Next**, pick **EAGLE Projects and Designs**, **Next**.
 2. **Design files:** add nothing. **Next.**
 3. **Library files:** **Add** `library\JR.lbr`. **Next.**
-4. **Settings page:** tick **Log All Errors / Warnings / Events**. Set the **output directory** to `J:\Engineering\PCB Design\Altium\Libraries\`. **Next**, then **Finish**.
+4. **Settings page:** tick **Log All Errors / Warnings / Events**. Set the **output directory** to `D:\Jase\Nas\Engineering\PCB Design\Altium\Libraries\`. **Next**, then **Finish**.
 5. You now have `JR.SchLib` and `JR.PcbLib` in that folder (open them from **File » Open** if the wizard didn't). Open the SchLib, pick a few components in the **SCH Library** panel, and check:
    - the **Parameters** list has `MANUFACTURER`, `MPN`, `LCSC` and `DESCRIPTION` (and the **Comment** shows the value, for example `1N4148W`);
    - the **Models** list has a footprint with the same name as in `JR_parts.csv`, and its preview shows the footprint.
-6. **Make the package:** **File » New » Project**, type **Integrated Library**, name `JR`, location `J:\Engineering\PCB Design\Altium\Libraries\`. Right-click `JR.LibPkg` in the **Projects** panel » **Add Existing to Project** » pick `JR.SchLib` and `JR.PcbLib`. **File » Save All.**
+6. **Make the package:** **File » New » Project**, type **Integrated Library**, name `JR`, location `D:\Jase\Nas\Engineering\PCB Design\Altium\Libraries\`. Right-click `JR.LibPkg` in the **Projects** panel » **Add Existing to Project** » pick `JR.SchLib` and `JR.PcbLib`. **File » Save All.**
 7. **Compile it:** right-click `JR.LibPkg` » **Compile Integrated Library JR.LibPkg**. The Messages panel should show no errors. Altium writes `Project Outputs for JR\JR.IntLib` and adds it to the **Components** panel. If the panel doesn't list it: **Components panel » ☰ » File-based Libraries Preferences » Installed » Install** and pick the `.IntLib`.
 8. **Optional tidy-up**, which you can do any time (recompile afterwards):
    - Rename the parameters to Altium's usual names with **Tools » Parameter Manager** in the SchLib: `MANUFACTURER` → `Manufacturer`, `MPN` → `Manufacturer Part Number`, `DESCRIPTION` → the component's **Description** field.

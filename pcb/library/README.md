@@ -2,7 +2,7 @@
 
 Jase's shared parts library: the macropad's parts, the Gameball carrier's parts, and room for later boards. It's built for hand-soldered boards ordered from JLCPCB with parts from LCSC, so every part is leaded (0805, SOD-123, SMA, SOT-23, through-hole) and carries its LCSC number where LCSC stocks it.
 
-Its home on Jase's PC is `J:\Engineering\PCB Design\Altium\Libraries\`. This folder is the source it's generated from.
+Its home on Jase's PC is `D:\Jase\Nas\Engineering\PCB Design\Altium\Libraries\`. This folder is the source it's generated from.
 
 ## How it's organised
 
@@ -23,7 +23,7 @@ Component names say what you'd search for: type, then value or part number, then
 JR is the only library to place parts from, on every board (the macropad, the Gameball carrier and anything later). A fix (a footprint, an LCSC number) is then made once and every board picks it up with Tools » Update From Libraries.
 
 - **Source of truth for the parts:** the generator in `src/` (this repo). It writes `JR.lbr`, which Altium 19 imports. Ask Claude to add or change a part and it rebuilds `JR.lbr`, `JR_parts.csv` and `JR_preview.pdf`.
-- **After the first Altium import:** the Altium files (`JR.SchLib`, `JR.PcbLib`, `JR.IntLib` in `J:\Engineering\PCB Design\Altium\Libraries\`) are the master for anything you edit there. Tell Claude what you changed and it is carried back to the generator, so the two never drift.
+- **After the first Altium import:** the Altium files (`JR.SchLib`, `JR.PcbLib`, `JR.IntLib` in `D:\Jase\Nas\Engineering\PCB Design\Altium\Libraries\`) are the master for anything you edit there. Tell Claude what you changed and it is carried back to the generator, so the two never drift.
 - **Install it once, for all projects:** in Altium, Components panel, the menu at the top right, **File-based Libraries Preferences**, **Installed**, **Install**, pick `JR.IntLib`. It then appears in every project.
 - **New board:** make a new PCB project, place parts from the JR library in the Components panel. A part that isn't in it yet: ask for it (with the LCSC number if you have one) rather than drawing it inside the board, so it joins the library.
 - **Checking it:** `check_boards.py` compares every footprint on a board with the JR footprint of the same name (pad numbers, positions, sizes, drills). It reports 0 differences for the macropad (40 parts) and the Gameball carrier (15 parts), so relinking either board to JR does not move or change a pad.
@@ -66,7 +66,7 @@ Version log: 2026-11-11, 22 parts for the macropad and the carrier (XIAO pins na
 
 ## Using it in Altium 19
 
-1. **File » Import Wizard » EAGLE Projects and Designs**, add `JR.lbr` as a *library file* only, output to the `J:\Engineering\PCB Design\Altium\Libraries` folder. You get `JR.SchLib` and `JR.PcbLib`.
+1. **File » Import Wizard » EAGLE Projects and Designs**, add `JR.lbr` as a *library file* only, output to the `D:\Jase\Nas\Engineering\PCB Design\Altium\Libraries` folder. You get `JR.SchLib` and `JR.PcbLib`.
 2. **File » New » Project » Integrated Library** named `JR`, add the two files, **Compile Integrated Library**. That makes `JR.IntLib` and installs it in the Components panel.
 3. Place parts from the **Components** panel. To change a part for every design: edit the SchLib/PcbLib, recompile, then in each design **Tools » Update From Libraries**.
 
