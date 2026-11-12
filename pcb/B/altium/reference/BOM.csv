@@ -1,0 +1,13 @@
+Designators,Qty,JR part,Value,Description,Manufacturer,Manufacturer Part Number,LCSC,Footprint,Side,Est. unit GBP
+"C1, C2",2,C_10n_0805,10nF,Capacitor 10 nF 50 V X7R 0805,Samsung,CL21B103KBANNNC,C1710,C_0805_2012Metric,Bottom,0.01
+C3,1,C_10u_0805,10uF,Capacitor 10 uF 25 V X5R 0805,Samsung,CL21A106KAYNNNE,C15850,C_0805_2012Metric,Bottom,0.03
+"D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13",13,D_1N4148W_SOD-123,1N4148W,"Switching diode 100 V 150 mA, SOD-123",ST(Semtech),1N4148W,C81598,D_SOD-123,Bottom,0.02
+ENC1,1,Encoder_PEC11R-4220F-S0024,PEC11R-4220F-S0024,"Rotary encoder, 24 detents / 24 pulses, push switch, 20 mm flatted shaft, EC11 size",Bourns,PEC11R-4220F-S0024,C143797,RotaryEncoder_EC11_Switch_NPTH,Top,1.6
+"H1, H2, H3, H4",4,MountingHole_M2,M2 hole,Unplated 2.2 mm hole for an M2 screw,,,,MountingHole_2.2mm_M2,Top,
+J1,1,Conn_JST_PH_S2B_Horizontal,S2B-PH-K-S,"JST PH 2-pin header, side entry, through-hole (LiPo plug)",JST,S2B-PH-K-S(LF)(SN),C173752,JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal,Bottom,0.1
+J2,1,Conn_Wire_Pads_1x08,Wire pads 1x8,"8 plated holes, 2.54 mm, 1.0 mm drill: solder wires (or a 1x8 header)",,,,PinHeader_1x08_P2.54mm_Vertical,Bottom,
+"SW1, SW2, SW3, SW4, SW5, SW6, SW7, SW8, SW9, SW10, SW11, SW12",12,SW_Kailh_MX_Hotswap,MX hot-swap,Kailh MX hot-swap socket for MX switches. Footprint goes on the bottom layer,Kailh,CPG151101S11,C2803348,SW_Kailh_MX_Hotswap,Bottom,0.12
+SW_PWR,1,SW_Slide_OS102011MA1QN1,OS102011MA1QN1,"Slide switch SPDT, right angle, through-hole, 4 mm actuator",C&K,OS102011MA1QN1,C226259,SW_Slide_SPDT_Angled_CK_OS102011MA1Q,Bottom,0.45
+SW_RST,1,SW_Tact_TS-1187A-B-A-B,TS-1187A-B-A-B,"Tactile switch 5.1 x 5.1 x 1.5 mm, SMD gull-wing, 160 gf",XKB Connection,TS-1187A-B-A-B,C318884,SW_Push_1P1T_XKB_TS-1187A,Bottom,0.03
+"TP1, TP2",2,TestPoint_Pad_1.5mm,Test pad,"Test pad, 1.5 mm, no part fitted",,,,TestPoint_Pad_D1.5mm,Bottom,
+U1,1,SuperMini_nRF52840,SuperMini nRF52840,"nRF52840 module, nice!nano v2 pinout, LiPo charger, USB-C. Pro Micro 24-pin",generic (nice!nano v2 clone),SuperMini nRF52840,,SuperMini_nRF52840,Bottom,4.5

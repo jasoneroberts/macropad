@@ -1,0 +1,18 @@
+Item,Buy,Used for,LCSC,Where,Est. GBP each,Est. GBP total,Notes
+Kailh MX hot-swap socket CPG151101S11,15,SW1-SW12,C2803348,LCSC,0.12,1.80,3 spare
+"Bourns PEC11R-4220F-S0024 encoder, 24 detents, push, 20 mm D shaft",2,ENC1,C143797,LCSC,1.60,3.20,1 spare / for the breadboard
+"C&K OS102011MA1QN1 slide switch, right angle",3,SW_PWR,C226259,LCSC,0.45,1.35,2 spare
+XKB TS-1187A-B-A-B tact switch 5.1 x 5.1 mm,5,SW_RST,C318884,LCSC,0.03,0.15,LCSC minimum
+"1N4148W diode, SOD-123",50,D1-D13,C81598,LCSC,0.01,0.50,LCSC minimum
+10 nF 50 V X7R 0805,50,"C1, C2",C1710,LCSC,0.01,0.25,LCSC minimum
+10 uF 25 V X5R 0805,20,C3,C15850,LCSC,0.02,0.40,LCSC minimum
+JST PH 2-pin side-entry header S2B-PH-K-S,3,J1,C173752,LCSC,0.10,0.30,2 spare
+"Main PCB, 2 layers, 1.6 mm, 95.3 x 110.5 mm, HASL",5,,,JLCPCB,3.00,15.00,Gerbers from Altium (Step 6)
+SuperMini nRF52840 (nice!nano v2 clone),3,U1,,AliExpress,4.50,13.50,2 spare; UF2 bootloader
+Low-profile 2.5 mm header pins + sockets (Mill-Max style) for U1,1,U1,,Mechboards / AliExpress,5.00,5.00,sets the 2.5 mm gap the case is designed for; 2 x 12 pins
+"Waveshare 2inch LCD Module (ST7789V, 240 x 320) with 8-wire PH2.0 cable",1,J2,,The Pi Hut,12.00,12.00,cut the cable and solder it into J2
+"LiPo 603040 3.7 V ~800 mAh, protection board, JST PH lead",1,J1,,The Pi Hut / Amazon UK,7.00,7.00,check + is on J1 pin 1 before plugging in
+MX-style switches,14,,,Mechboards,0.60,8.40,2 spare
+1u MX keycaps,12,,,Mechboards / AliExpress,0.80,9.60,
+M2 x 5 self-tapping pan-head screws,6,H1-H4 + display clamp,,Accu / Amazon UK,0.20,1.20,
+"M3 heat-set inserts (M3 x 4, ~4 mm OD) + M3 x 8 countersunk screws",4,case,,Amazon UK,0.50,2.00,

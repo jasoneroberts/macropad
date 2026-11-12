@@ -1,0 +1,147 @@
+** Drc report for pcb/B/kicad/macropad_B.kicad_pcb **
+** Created on 2026-11-11 10:12:16 **
+
+** Found 42 DRC violations **
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(96.7150 mm, 90.8750 mm): Line on B.Silkscreen
+    @(99.0750 mm, 91.4750 mm): Reference 'D4'
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(113.3000 mm, 66.0000 mm): PCB Text 'ON' on B.Silkscreen
+    @(113.4000 mm, 63.7000 mm): Line on B.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(102.0000 mm, 61.6000 mm): Reference 'D13'
+    @(99.6400 mm, 62.0000 mm): Line on B.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(111.7000 mm, 33.6000 mm): Reference 'J2'
+    @(111.1200 mm, 60.3700 mm): Line on B.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(103.0000 mm, 68.0000 mm): Reference 'J1'
+    @(104.0000 mm, 67.5000 mm): Line on B.Silkscreen
+[silk_overlap]: Silkscreen overlap
+    Rule: board setup constraints silk; Severity: warning
+    @(103.0000 mm, 68.0000 mm): Reference 'J1'
+    @(99.6400 mm, 68.5000 mm): Line on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(102.0000 mm, 59.0000 mm): Reference 'U1'
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(92.8800 mm, 60.3700 mm): Line on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(54.8750 mm, 121.7750 mm): Line on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(35.8250 mm, 102.7250 mm): Line on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(92.9750 mm, 83.6750 mm): Line on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(73.9250 mm, 102.7250 mm): Line on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(54.8750 mm, 83.6750 mm): Line on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(92.9750 mm, 102.7250 mm): Line on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(92.9750 mm, 121.7750 mm): Line on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(54.8750 mm, 102.7250 mm): Line on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(35.8250 mm, 121.7750 mm): Line on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(35.8250 mm, 83.6750 mm): Line on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(73.9250 mm, 121.7750 mm): Line on B.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; Severity: warning
+    @(73.9250 mm, 83.6750 mm): Line on B.Silkscreen
+[lib_footprint_mismatch]: Footprint 'SW_Push_1P1T_XKB_TS-1187A' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(94.5000 mm, 73.8750 mm): Footprint SW_RST
+[lib_footprint_mismatch]: Footprint 'D_SOD-123' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(102.0000 mm, 63.0000 mm): Footprint D13
+[lib_footprint_mismatch]: Footprint 'D_SOD-123' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(99.0750 mm, 127.9750 mm): Footprint D12
+[lib_footprint_mismatch]: Footprint 'D_SOD-123' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(41.9250 mm, 127.9750 mm): Footprint D9
+[lib_footprint_mismatch]: Footprint 'JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(106.0000 mm, 69.0000 mm): Footprint J1
+[lib_footprint_mismatch]: Footprint 'D_SOD-123' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(80.0250 mm, 89.8750 mm): Footprint D3
+[lib_footprint_mismatch]: Footprint 'SW_Slide_SPDT_Angled_CK_OS102011MA1Q' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(115.7000 mm, 66.0000 mm): Footprint SW_PWR
+[lib_footprint_mismatch]: Footprint 'D_SOD-123' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(41.9250 mm, 89.8750 mm): Footprint D1
+[lib_footprint_mismatch]: Footprint 'D_SOD-123' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(80.0250 mm, 127.9750 mm): Footprint D11
+[lib_footprint_mismatch]: Footprint 'D_SOD-123' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(99.0750 mm, 108.9250 mm): Footprint D8
+[lib_footprint_mismatch]: Footprint 'D_SOD-123' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(60.9750 mm, 108.9250 mm): Footprint D6
+[lib_footprint_mismatch]: Footprint 'D_SOD-123' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(99.0750 mm, 89.8750 mm): Footprint D4
+[lib_footprint_mismatch]: Footprint 'D_SOD-123' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(41.9250 mm, 108.9250 mm): Footprint D5
+[lib_footprint_mismatch]: Footprint 'D_SOD-123' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(80.0250 mm, 108.9250 mm): Footprint D7
+[lib_footprint_mismatch]: Footprint 'PinHeader_1x08_P2.54mm_Vertical' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(113.6000 mm, 34.8600 mm): Footprint J2
+[lib_footprint_mismatch]: Footprint 'D_SOD-123' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(60.9750 mm, 127.9750 mm): Footprint D10
+[lib_footprint_mismatch]: Footprint 'D_SOD-123' does not match copy in library 'JR'.
+    Local override; Severity: warning
+    @(60.9750 mm, 89.8750 mm): Footprint D2
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(115.5000 mm, 29.3500 mm): Arc on Edge.Cuts
+    @(112.2000 mm, 27.8500 mm): Line on B.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(115.5000 mm, 29.3500 mm): Arc on Edge.Cuts
+    @(111.1200 mm, 60.3700 mm): Line on B.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(115.5000 mm, 29.3500 mm): Arc on Edge.Cuts
+    @(111.1200 mm, 28.4500 mm): Line on B.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(115.5000 mm, 29.3500 mm): Arc on Edge.Cuts
+    @(114.9300 mm, 34.8600 mm): Line on B.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; Severity: warning
+    @(115.5000 mm, 29.3500 mm): Arc on Edge.Cuts
+    @(114.9300 mm, 33.5300 mm): Line on B.Silkscreen
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** End of Report **

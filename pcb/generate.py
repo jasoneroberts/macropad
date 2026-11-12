@@ -36,6 +36,8 @@ OUT_ROOT = os.environ.get("MACROPAD_OUT", ROOT)
 # Pins 1-12 run down the left side and 13-24 up the right, seen from the module's
 # component side with USB-C at the top (the usual Pro Micro numbering).
 # (pin, label, nRF pin, net). None = not connected on this concept.
+# Pins 5-10 are the LCD cable order (DIN, CLK, CS, DC, RST, BL), so the LCD signals run straight across to J2.
+# Same map as firmware/boards/promicro_nrf52840_nrf52840_uf2.overlay and pcb/board/design_b.py.
 # ---------------------------------------------------------------------------
 def u1_pins(rows, cols_total):
     return [
@@ -43,20 +45,20 @@ def u1_pins(rows, cols_total):
         (2, "D0", "P0.08", "ROW3" if rows > 3 else None),
         (3, "GND", "GND", "GND"),
         (4, "GND", "GND", "GND"),
-        (5, "D2", "P0.17", "LCD_SCK"),
-        (6, "D3", "P0.20", "LCD_MOSI"),
+        (5, "D2", "P0.17", "LCD_MOSI"),
+        (6, "D3", "P0.20", "LCD_SCK"),
         (7, "D4", "P0.22", "LCD_CS"),
         (8, "D5", "P0.24", "LCD_DC"),
-        (9, "D6", "P1.00", "ROW0"),
-        (10, "D7", "P0.11", "ROW1"),
+        (9, "D6", "P1.00", "LCD_RST"),
+        (10, "D7", "P0.11", "LCD_BL"),
         (11, "D8", "P1.04", "ROW2"),
         (12, "D9", "P1.06", "COL0"),
         (13, "D10", "P0.09", "ENC_A"),
         (14, "D16", "P0.10", "ENC_B"),
         (15, "D14", "P1.11", "COL1"),
         (16, "D15", "P1.13", "COL2"),
-        (17, "D18", "P1.15", "LCD_RST"),
-        (18, "D19", "P0.02", "LCD_BL"),
+        (17, "D18", "P1.15", "ROW0"),
+        (18, "D19", "P0.02", "ROW1"),
         (19, "D20", "P0.29", "COL3"),
         (20, "D21", "P0.31", "COL4" if cols_total > 4 else None),
         (21, "VCC", "3V3 out (P0.13 switched)", "3V3_SW"),

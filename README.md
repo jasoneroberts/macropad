@@ -4,6 +4,8 @@ A wireless macropad with MX keys, an EC11 knob and a small LCD that shows what e
 
 Status 2026-10-21: concept B (12 keys, 2.0″ screen) and the SuperMini nRF52840 controller are chosen. The case model, firmware and PCB inputs exist for all three concepts; the firmware compiles but has not run on hardware yet, and nothing has been printed. Next: buy the screen and an EC11 knob and try the firmware on the nRF52840 DK.
 
+Status 2026-11-11: the concept B main PCB is designed in full (schematic, placement, routing, ground pours) with its parts in a shared JR component library, ready to import into Altium 19 and order from JLCPCB: see `pcb/B/altium/README.md`. The controller pin map changed with it (LCD on footprint pins 5-10, rows 0/1 on P1.15/P0.02); the firmware and case follow.
+
 | | A · Pocket | B · Studio (chosen) | C · Deck |
 |---|---|---|---|
 | Keys | 3 × 3 MX hot-swap | 4 × 3 MX hot-swap | 4 × 4 MX hot-swap |
@@ -32,7 +34,7 @@ Heights are without the 10 mm rubber feet (add about 2 mm).
 | `tools/` | `build.py` (STLs, DXF, report, fit check, GLB), `drawings.py` (plan and section SVGs), `make_page.py` + `page_template.html`, `build_firmware.sh` (Linux: installs NCS v3.3.0 and builds all six firmware variants; CI runs it too). |
 | `firmware/` | Zephyr / NCS v3.3.0 app: keys, knob, LVGL screen, USB + Bluetooth HID. See `firmware/README.md`. |
 | `firmware/prebuilt/` | Ready-to-flash concept B images: `macropad_B_promicro.uf2` and `macropad_B_dk.hex`. GitHub Actions also builds them on every firmware change (the run's "Artifacts"). |
-| `pcb/` | `generate.py` and, per concept, BOM, netlist, placement and outline for Altium. See `pcb/README.md`. |
+| `pcb/` | The concept B board for Altium (`pcb/B/altium/`), its KiCad working copy and scripts (`pcb/B/kicad/`, `pcb/board/`), the shared JR component library (`pcb/library/`), and `generate.py`'s starting kits for all three concepts. See `pcb/README.md`. |
 | `SHOPPING.md` | What to buy for B (UK prices) and what to measure when it arrives. |
 | `LICENSES/` | Upstream licences for the files based on Nordic and Zephyr samples (see "Licences" below). |
 
@@ -66,8 +68,8 @@ These come from listings or datasheets, not from parts on the bench:
 - Top shell = switch plate. 3 mm skin: 1.5 mm lip with the 14 mm hole, 15 mm pocket below for the MX clips. PCB top 5.0 mm below the plate top (MX standard), Kailh sockets under the PCB.
 - The top surface is tilted, the bottom plate is flat, so the inside gets deeper toward the back. LiPo, controller and display stack live under the rear band.
 - Display: window = active area + 0.4 mm with a 45° chamfer through a 1 mm bezel; glass in a pocket; printed clamp with two M2 screws holds the module board. Main PCB has a cut-out there; 8 wires to the module.
-- Controller: SuperMini nRF52840 (chosen 2026-10-21; a nice!nano v2 also fits) on 2.5 mm headers under the PCB, component side down, USB-C through a 13 × 7.5 mm rear opening.
-- Four M3 countersunk screws into M3 heat-set inserts in the corner bosses; M2 self-tapping screws for the PCB pillars and the display clamp; slide switch slot in the right wall.
+- Controller: SuperMini nRF52840 (chosen 2026-10-21; a nice!nano v2 also fits) on 2.5 mm headers under the PCB, component side down, USB-C (mid-mount, centred on the 1.6 mm module board) through a 13 × 7.5 mm rear opening.
+- Four M3 countersunk screws into M3 heat-set inserts in the corner bosses; M2 self-tapping screws for the PCB pillars and the display clamp; slide switch slot in the right wall for the OS102011MA1QN1's actuator.
 - Prints without supports: top shell face down, bottom plate and clamp flat, knob top face down. Largest part is C's top shell, 92 × 140 mm.
 
 ## Licences

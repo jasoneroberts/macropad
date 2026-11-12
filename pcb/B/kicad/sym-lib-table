@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "JR")(type "KiCad")(uri "${KIPRJMOD}/../../library/JR.kicad_sym")(options "")(descr "JR shared library (pcb/library)"))
+)
