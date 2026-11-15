@@ -92,15 +92,15 @@ class Fp:
 
 # ---------------------------------------------------------------------------------------------------------------
 def supermini(lib):
-    """SuperMini nRF52840 / nice!nano v2 (Pro Micro size). Drawn from the module's component side, USB-C up.
+    """SuperMini nRF52840 / nice-nano v2 (Pro Micro size). Drawn from the module's component side, USB-C up.
 
     24 pins on two rows 15.24 mm apart, 2.54 mm pitch, pins centred on the module (18 x 33 mm board).
     The three inner pins at the far end (P1.01, P1.02, P1.07) are not used and have no holes.
     Placed on the bottom layer (module hanging under the board, components facing away from it), Altium/KiCad mirror it: pin 1 lands on the right
     in the top view, with USB still at the top.
     """
-    f = Fp("SuperMini_nRF52840", "SuperMini nRF52840 / nice!nano v2, Pro Micro 24-pin, 2.54 mm, rows 15.24 mm. "
-           "Module outline 18 x 33 mm, USB-C at the top edge", "nRF52840 pro micro supermini nice!nano")
+    f = Fp("SuperMini_nRF52840", "SuperMini nRF52840 / nice-nano v2, Pro Micro 24-pin, 2.54 mm, rows 15.24 mm. "
+           "Module outline 18 x 33 mm, USB-C at the top edge", "nRF52840 pro micro supermini nice-nano")
     for i in range(12):
         y = -13.97 + i * 2.54
         f.tht(i + 1, (-7.62, y), 1.7, 1.0, "rect" if i == 0 else "circle")

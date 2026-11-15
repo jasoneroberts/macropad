@@ -175,7 +175,7 @@ def supermini():
             (8, "P0.24"), (9, "P1.00"), (10, "P0.11"), (11, "P1.04"), (12, "P1.06")]
     right = [(24, "BAT+"), (23, "GND"), (22, "RST"), (21, "VCC"), (20, "P0.31"), (19, "P0.29"), (18, "P0.02"),
              (17, "P1.15"), (16, "P1.13"), (15, "P1.11"), (14, "P0.10"), (13, "P0.09")]
-    s = module("SuperMini_nRF52840", "SuperMini nRF52840 (nice!nano v2 pinout), Pro Micro 24-pin", left, right)
+    s = module("SuperMini_nRF52840", "SuperMini nRF52840 (nice-nano v2 pinout), Pro Micro 24-pin", left, right)
     s.text("USB-C", 0, G * 6 + 1.27, 1.27)
     return s
 

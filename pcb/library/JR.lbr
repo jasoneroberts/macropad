@@ -462,7 +462,7 @@
 <text x="1.7" y="-7.7" size="1" layer="27" font="vector" ratio="12" rot="R0" align="center">&gt;VALUE</text>
 </package>
 <package name="SuperMini_nRF52840">
-<description>SuperMini nRF52840 / nice!nano v2, Pro Micro 24-pin, 2.54 mm, rows 15.24 mm. Module outline 18 x 33 mm, USB-C at the top edge</description>
+<description>SuperMini nRF52840 / nice-nano v2, Pro Micro 24-pin, 2.54 mm, rows 15.24 mm. Module outline 18 x 33 mm, USB-C at the top edge</description>
 <pad name="1" x="-7.62" y="13.97" drill="1" diameter="1.7" shape="square" rot="R0"/>
 <pad name="24" x="7.62" y="13.97" drill="1" diameter="1.7" shape="round" rot="R0"/>
 <pad name="2" x="-7.62" y="11.43" drill="1" diameter="1.7" shape="round" rot="R0"/>
@@ -536,9 +536,9 @@
 <pad name="18" x="1.27" y="6.032" drill="0.9" diameter="1.4" shape="round" rot="R0"/>
 <pad name="19" x="-4.445" y="0.317" drill="0.9" diameter="1.4" shape="square" rot="R0"/>
 <pad name="20" x="-4.445" y="2.222" drill="0.9" diameter="1.4" shape="round" rot="R0"/>
-<text x="-2.2" y="2.222" size="0.7" layer="22" font="vector" ratio="12" rot="MR0" align="center">BAT-</text>
-<text x="0" y="4.6" size="0.7" layer="22" font="vector" ratio="12" rot="MR0" align="center">SWD</text>
 <text x="-2.2" y="0.317" size="0.7" layer="22" font="vector" ratio="12" rot="MR0" align="center">BAT+</text>
+<text x="0" y="4.6" size="0.7" layer="22" font="vector" ratio="12" rot="MR0" align="center">SWD</text>
+<text x="-2.2" y="2.222" size="0.7" layer="22" font="vector" ratio="12" rot="MR0" align="center">BAT-</text>
 <text x="0" y="8.9" size="0.8" layer="51" font="vector" ratio="12" rot="R0" align="center">USB-C</text>
 <wire x1="-9.6" y1="8.5" x2="-9.6" y2="6.7" width="0.12" layer="21"/>
 <wire x1="-8.95" y1="10.62" x2="8.95" y2="10.62" width="0.12" layer="21"/>
@@ -786,7 +786,7 @@
 <text x="0" y="-4.318" size="1.778" layer="96" font="vector" ratio="12" rot="R0" align="center">&gt;VALUE</text>
 </symbol>
 <symbol name="SuperMini_nRF52840">
-<description>SuperMini nRF52840 (nice!nano v2 pinout), Pro Micro 24-pin</description>
+<description>SuperMini nRF52840 (nice-nano v2 pinout), Pro Micro 24-pin</description>
 <wire x1="-7.62" y1="-15.24" x2="7.62" y2="-15.24" width="0.254" layer="94"/>
 <wire x1="7.62" y1="-15.24" x2="7.62" y2="17.78" width="0.254" layer="94"/>
 <wire x1="7.62" y1="17.78" x2="-7.62" y2="17.78" width="0.254" layer="94"/>
@@ -858,12 +858,12 @@
 </symbols>
 <devicesets>
 <deviceset name="SuperMini_nRF52840" prefix="U" uservalue="yes">
-<description>nRF52840 module, nice!nano v2 pinout, LiPo charger, USB-C. Pro Micro 24-pin</description>
+<description>nRF52840 module, nice-nano v2 pinout, LiPo charger, USB-C. Pro Micro 24-pin</description>
 <gates><gate name="G$1" symbol="SuperMini_nRF52840" x="0" y="0"/></gates>
 <devices>
 <device name="" package="SuperMini_nRF52840">
 <connects><connect gate="G$1" pin="P0.06" pad="1"/><connect gate="G$1" pin="BAT+" pad="24"/><connect gate="G$1" pin="P0.08" pad="2"/><connect gate="G$1" pin="GND@23" pad="23"/><connect gate="G$1" pin="GND@3" pad="3"/><connect gate="G$1" pin="RST" pad="22"/><connect gate="G$1" pin="GND@4" pad="4"/><connect gate="G$1" pin="VCC" pad="21"/><connect gate="G$1" pin="P0.17" pad="5"/><connect gate="G$1" pin="P0.31" pad="20"/><connect gate="G$1" pin="P0.20" pad="6"/><connect gate="G$1" pin="P0.29" pad="19"/><connect gate="G$1" pin="P0.22" pad="7"/><connect gate="G$1" pin="P0.02" pad="18"/><connect gate="G$1" pin="P0.24" pad="8"/><connect gate="G$1" pin="P1.15" pad="17"/><connect gate="G$1" pin="P1.00" pad="9"/><connect gate="G$1" pin="P1.13" pad="16"/><connect gate="G$1" pin="P0.11" pad="10"/><connect gate="G$1" pin="P1.11" pad="15"/><connect gate="G$1" pin="P1.04" pad="11"/><connect gate="G$1" pin="P0.10" pad="14"/><connect gate="G$1" pin="P1.06" pad="12"/><connect gate="G$1" pin="P0.09" pad="13"/></connects>
-<technologies><technology name=""><attribute name="MANUFACTURER" value="generic (nice!nano v2 clone)"/><attribute name="MPN" value="SuperMini nRF52840"/><attribute name="DESCRIPTION" value="nRF52840 module, nice!nano v2 pinout, LiPo charger, USB-C. Pro Micro 24-pin"/></technology></technologies>
+<technologies><technology name=""><attribute name="MANUFACTURER" value="generic nice-nano v2 clone"/><attribute name="MPN" value="SuperMini nRF52840"/><attribute name="DESCRIPTION" value="nRF52840 module, nice-nano v2 pinout, LiPo charger, USB-C. Pro Micro 24-pin"/></technology></technologies>
 </device>
 </devices>
 </deviceset>

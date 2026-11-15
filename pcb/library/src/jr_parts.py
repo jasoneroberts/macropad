@@ -14,7 +14,7 @@ LCSC numbers were looked up on lcsc.com on 2026-11-11 (macropad parts) or come f
 PARTS = {
     # ---- controllers --------------------------------------------------------------------------------------------
     "SuperMini_nRF52840": ("SuperMini_nRF52840", "SuperMini_nRF52840", "SuperMini nRF52840",
-        "nRF52840 module, nice!nano v2 pinout, LiPo charger, USB-C. Pro Micro 24-pin", "generic (nice!nano v2 clone)",
+        "nRF52840 module, nice-nano v2 pinout, LiPo charger, USB-C. Pro Micro 24-pin", "generic nice-nano v2 clone",
         "SuperMini nRF52840", "", "macropad"),
     "XIAO_nRF52840": ("XIAO_nRF52840", "XIAO_nRF52840_SMD", "XIAO nRF52840",
         "nRF52840 module with LiPo charger, 3V3 regulator, USB-C; castellated edge, SWD and battery pads",
