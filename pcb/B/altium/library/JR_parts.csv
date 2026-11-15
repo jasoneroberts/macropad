@@ -1,5 +1,5 @@
 Name,Designator,Symbol,Footprint,Value (Comment),Description,Manufacturer,Manufacturer Part Number,LCSC,Used on
-SuperMini_nRF52840,U?,SuperMini_nRF52840,SuperMini_nRF52840,SuperMini nRF52840,"nRF52840 module, nice!nano v2 pinout, LiPo charger, USB-C. Pro Micro 24-pin",generic (nice!nano v2 clone),SuperMini nRF52840,,macropad
+SuperMini_nRF52840,U?,SuperMini_nRF52840,SuperMini_nRF52840,SuperMini nRF52840,"nRF52840 module, nice-nano v2 pinout, LiPo charger, USB-C. Pro Micro 24-pin",generic nice-nano v2 clone,SuperMini nRF52840,,macropad
 XIAO_nRF52840,U?,XIAO_nRF52840,XIAO_nRF52840_SMD,XIAO nRF52840,"nRF52840 module with LiPo charger, 3V3 regulator, USB-C; castellated edge, SWD and battery pads",Seeed Studio,102010448,,carrier
 SW_Kailh_MX_Hotswap,SW?,SW_Key,SW_Kailh_MX_Hotswap,MX hot-swap,Kailh MX hot-swap socket for MX switches. Footprint goes on the bottom layer,Kailh,CPG151101S11,C2803348,macropad
 Encoder_PEC11R-4220F-S0024,ENC?,RotaryEncoder_Switch,RotaryEncoder_EC11_Switch_NPTH,PEC11R-4220F-S0024,"Rotary encoder, 24 detents / 24 pulses, push switch, 20 mm flatted shaft, EC11 size",Bourns,PEC11R-4220F-S0024,C143797,macropad
