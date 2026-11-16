@@ -70,15 +70,23 @@ def plan(r):
         aw, ah = r["active"][0] + 0.8, r["active"][1] + 0.8
         s.append(rrect(X(ac[0] - aw / 2 - 1), Y(ac[1] + ah / 2 + 1), aw + 2, ah + 2, 1.6, "bezel"))
         s.append(rrect(X(ac[0] - aw / 2), Y(ac[1] + ah / 2), aw, ah, 0.6, "screen"))
-        # tile grid that mirrors the keys (80 px tiles)
-        px = r["px"]
-        cols, rows = px[0] // 80, (px[1] - px[1] % 80) // 80
-        tw, th = r["active"][0] / (px[0] / 80), r["active"][1] / (px[1] / 80)
-        x0 = ac[0] - r["active"][0] / 2
-        ytop = ac[1] + r["active"][1] / 2 - (px[1] % 80) / px[1] * r["active"][1]
-        for i in range(cols):
-            for j in range(rows):
-                s.append(rrect(X(x0 + i * tw + 0.6), Y(ytop - j * th - 0.6), tw - 1.2, th - 1.2, 0.8, "tile"))
+        if r.get("bezel_windows"):
+            # grid bezel: one window per key and a status strip, as cut in the top shell
+            s[-1] = rrect(X(ac[0] - aw / 2), Y(ac[1] + ah / 2), aw, ah, 0.6, "bezel")
+            for x0, y0, x1, y1 in r["bezel_windows"]:
+                s.append(rrect(X(ac[0] + x0), Y(ac[1] + y1), x1 - x0, y1 - y0, 0.5, "screen"))
+            for x0, y0, x1, y1 in r["bezel_windows"][1:]:
+                s.append(rrect(X(ac[0] + x0 + 0.3), Y(ac[1] + y1 - 0.3), x1 - x0 - 0.6, y1 - y0 - 0.6, 0.6, "tile"))
+        else:
+            # tile grid that mirrors the keys (80 px tiles)
+            px = r["px"]
+            cols, rows = px[0] // 80, (px[1] - px[1] % 80) // 80
+            tw, th = r["active"][0] / (px[0] / 80), r["active"][1] / (px[1] / 80)
+            x0 = ac[0] - r["active"][0] / 2
+            ytop = ac[1] + r["active"][1] / 2 - (px[1] % 80) / px[1] * r["active"][1]
+            for i in range(cols):
+                for j in range(rows):
+                    s.append(rrect(X(x0 + i * tw + 0.6), Y(ytop - j * th - 0.6), tw - 1.2, th - 1.2, 0.8, "tile"))
     # keys
     for kx, ky in r["keys_xy"]:
         s.append(rrect(X(kx - 9), Y(ky + 9), 18, 18, 2, "cap"))

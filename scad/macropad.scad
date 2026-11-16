@@ -77,6 +77,15 @@ glass_gap    = 0.25;
 clamp_t      = 2.0;
 clamp_rim    = 2.5;    // how far the clamp frame reaches under the module board
 
+// ---- grid bezel: one window per key plus a status strip (rectangular screens) ----
+// The bezel splits the screen into separate "mini displays". The layout is worked out in
+// pixels with the same sums as build_ui() in firmware/src/Display_UI.c, so the tiles land in
+// the windows: keep bz_web_px and bz_status_px equal to BEZEL_WEB_PX and BEZEL_STATUS_MIN_PX.
+grid_bezel   = true;
+bz_web_px    = 12;     // web between windows at the glass, in pixels (12 px = 1.53 mm on the 2.0in)
+bz_status_px = 20;     // smallest status strip height; rounding leftovers are added to it
+bz_taper     = 0.3;    // each window opens this much wider at the top surface (webs 1.5 -> 0.9 mm)
+
 // ---- controller: Pro Micro size nRF52840 (nice!nano v2 / SuperMini clone) ----
 mcu_size     = [18.0, 33.0, 1.0];   // x, y, board thickness
 mcu_gap      = 2.5;    // header plastic between the main PCB and the controller
@@ -143,6 +152,27 @@ enc_c  = cfg("enc_c");
 round_disp = dsp("type") == "round";
 win_round  = round_disp ? dsp("active") + 2 * win_margin : 0;
 win_rect   = round_disp ? [0, 0] : dsp("active") + [2, 2] * win_margin;
+
+// Grid bezel windows as [x0, y0, x1, y1] in mm from the active-area centre (y toward the back).
+// Pixel sums, matching build_ui(): tiles are floor()ed, the leftover rows go to the status strip
+// and the leftover columns are split either side of the grid.
+bz_on   = grid_bezel && !round_disp;
+bz_px   = round_disp ? [0, 0] : dsp("px");
+bz_mm   = round_disp ? 0 : dsp("active")[0] / bz_px[0];     // mm per pixel (square pixels)
+bz_tw   = floor((bz_px[0] - (cols - 1) * bz_web_px) / cols);
+bz_th   = floor((bz_px[1] - bz_status_px - rows * bz_web_px) / rows);
+bz_sh   = bz_px[1] - rows * (bz_th + bz_web_px);              // status strip height, px
+bz_gx   = floor((bz_px[0] - cols * bz_tw - (cols - 1) * bz_web_px) / 2);
+// pixel rectangle [x0, y0, x1, y1] (y down) to mm; edges on the screen border grow by win_margin
+function bz_rect(p) = let(m = [p[0] <= 0 ? win_margin : 0, p[1] <= 0 ? win_margin : 0,
+                               p[2] >= bz_px[0] ? win_margin : 0, p[3] >= bz_px[1] ? win_margin : 0])
+    [ (p[0] - bz_px[0] / 2) * bz_mm - m[0], (bz_px[1] / 2 - p[3]) * bz_mm - m[3],
+      (p[2] - bz_px[0] / 2) * bz_mm + m[2], (bz_px[1] / 2 - p[1]) * bz_mm + m[1] ];
+BZ_WINDOWS = !bz_on ? [] : concat(
+    [ bz_rect([0, 0, bz_px[0], bz_sh]) ],
+    [ for (r = [0:rows-1]) for (c = [0:cols-1])
+        let(x = bz_gx + c * (bz_tw + bz_web_px), y = bz_sh + bz_web_px + r * (bz_th + bz_web_px))
+        bz_rect([x, y, x + bz_tw, y + bz_th]) ]);
 
 function key_c(c, r) = [grid_x0 + (c + 0.5) * pitch, grid_y0 + (r + 0.5) * pitch];
 KEYS = [ for (r = [0:rows-1]) for (c = [0:cols-1]) key_c(c, r) ];
@@ -266,6 +296,15 @@ module shell_cuts_plate() {
         if (round_disp) {
             translate([0, 0, -bezel_t - 0.01]) cylinder(d1 = win_round, d2 = win_round + 2 * bezel_t + 0.02, h = bezel_t + 0.02, $fn = 128);
             translate([0, 0, -0.01]) cylinder(d = win_round + 2 * bezel_t + 0.02, h = 2, $fn = 128);
+        } else if (bz_on) {
+            // one tapered window per key and one for the status strip
+            for (w = BZ_WINDOWS) translate([(w[0] + w[2]) / 2, (w[1] + w[3]) / 2]) {
+                hull() {
+                    translate([0, 0, -bezel_t - 0.01]) linear_extrude(0.01) crect([w[2] - w[0], w[3] - w[1]], 0.5);
+                    linear_extrude(0.01) crect([w[2] - w[0], w[3] - w[1]] + [2, 2] * bz_taper, 0.5 + bz_taper);
+                }
+                translate([0, 0, -0.01]) linear_extrude(2) crect([w[2] - w[0], w[3] - w[1]] + [2, 2] * bz_taper, 0.5 + bz_taper);
+            }
         } else {
             hull() {
                 translate([0, 0, -bezel_t - 0.01]) linear_extrude(0.01) crect(win_rect, 0.6);
@@ -467,6 +506,7 @@ module report() {
         "\"disp_type\":\"", dsp("type"), "\",\"disp_label\":\"", dsp("label"), "\",",
         "\"disp_c\":", disp_c, ",\"active\":", dsp("active"), ",\"active_off\":", dsp("active_off"), ",",
         "\"glass\":", dsp("glass"), ",\"px\":", dsp("px"), ",\"bezel_t\":", bezel_t, ",",
+        "\"bezel_windows\":", BZ_WINDOWS, ",\"bezel_tile_px\":", [bz_tw, bz_th, bz_sh], ",\"bezel_taper\":", bz_taper, ",",
         "\"mcu_c\":", mcu_c, ",\"mcu_size\":", mcu_size, ",",
         "\"lipo\":", lipo, ",\"bat\":", bat, ",",
         "\"bosses\":", BOSSES, ",\"pillars\":", PILLARS, ",\"dpillars\":", DPILLARS, ",",

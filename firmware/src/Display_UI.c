@@ -30,7 +30,18 @@ LOG_MODULE_REGISTER(display_ui, LOG_LEVEL_INF);
 #define INFO_SHOW_MS    1500     /* how long "Vol +" stays in the status bar */
 #define SMALL_TILE_W    60       /* below this, tiles show the icon only */
 
+/* Grid bezel (CONFIG_MACROPAD_UI_BEZEL). Keep equal to bz_web_px and bz_status_px in
+ * scad/macropad.scad: the case's windows are cut from the same pixel sums as build_ui().
+ */
+#define BEZEL_WEB_PX        12   /* plastic web between windows, px */
+#define BEZEL_STATUS_MIN_PX 20   /* smallest status strip; rounding leftovers are added */
+#define BEZEL_PAD           2    /* tile inset inside its window, hides small misalignment */
+
+#if defined(CONFIG_MACROPAD_UI_BEZEL)
+#define COL_BG          0x000000 /* black under the webs, so the windows read as separate screens */
+#else
 #define COL_BG          0x101418
+#endif
 #define COL_TILE        0x262c33
 #define COL_TILE_DOWN   0x0b6e74 /* the knob's teal from the case renders */
 #define COL_TEXT        0xf4f3ef
@@ -140,18 +151,63 @@ static lv_obj_t *make_label(lv_obj_t *parent, const lv_font_t *font, uint32_t co
 	return label;
 }
 
+/* Where the status bar and the tiles go, in pixels */
+struct ui_layout {
+	int32_t status_h;          /* status bar height from the top of the screen */
+	int32_t grid_x, grid_y;    /* top-left of tile 0 */
+	int32_t tile_w, tile_h;
+	int32_t step_x, step_y;    /* tile pitch */
+};
+
+static void layout_get(int32_t w, int32_t h, struct ui_layout *lay)
+{
+#if defined(CONFIG_MACROPAD_UI_BEZEL)
+	/*
+	 * The bezel windows. Across: KEY_COLS tiles with a web between each pair and none
+	 * at the screen edges. Down: the status strip, then KEY_ROWS rows of tiles, each
+	 * with a web above it. Tile sizes are rounded down; the spare rows
+	 * go to the status strip and the spare columns are split left and right.
+	 * On the 2.0in 320 x 240 screen, 4 x 3 keys: tiles 71 x 61 px, status 21 px.
+	 */
+	int32_t pad = BEZEL_PAD;
+
+	lay->tile_w = (w - (KEY_COLS - 1) * BEZEL_WEB_PX) / KEY_COLS;
+	lay->tile_h = (h - BEZEL_STATUS_MIN_PX - KEY_ROWS * BEZEL_WEB_PX) / KEY_ROWS;
+	lay->status_h = h - KEY_ROWS * (lay->tile_h + BEZEL_WEB_PX);
+	lay->step_x = lay->tile_w + BEZEL_WEB_PX;
+	lay->step_y = lay->tile_h + BEZEL_WEB_PX;
+	lay->grid_x = (w - KEY_COLS * lay->tile_w - (KEY_COLS - 1) * BEZEL_WEB_PX) / 2 + pad;
+	lay->grid_y = lay->status_h + BEZEL_WEB_PX + pad;
+	lay->tile_w -= 2 * pad;
+	lay->tile_h -= 2 * pad;
+#else
+	int32_t inset = CONFIG_MACROPAD_UI_INSET;
+	int32_t grid_w = w - 2 * inset;
+	int32_t grid_h = h - 2 * inset - STATUS_H;
+
+	lay->status_h = inset + STATUS_H;
+	lay->tile_w = (grid_w - GAP * (KEY_COLS + 1)) / KEY_COLS;
+	lay->tile_h = (grid_h - GAP * (KEY_ROWS + 1)) / KEY_ROWS;
+	lay->step_x = lay->tile_w + GAP;
+	lay->step_y = lay->tile_h + GAP;
+	lay->grid_x = inset + GAP;
+	lay->grid_y = inset + STATUS_H + GAP;
+#endif
+}
+
 static void build_ui(void)
 {
 	lv_obj_t *scr = lv_screen_active();
 	int32_t w = lv_display_get_horizontal_resolution(NULL);
 	int32_t h = lv_display_get_vertical_resolution(NULL);
 	int32_t inset = CONFIG_MACROPAD_UI_INSET;
-	int32_t grid_x = inset;
-	int32_t grid_y = inset + STATUS_H;
-	int32_t grid_w = w - 2 * inset;
-	int32_t grid_h = h - 2 * inset - STATUS_H;
-	int32_t tile_w = (grid_w - GAP * (KEY_COLS + 1)) / KEY_COLS;
-	int32_t tile_h = (grid_h - GAP * (KEY_ROWS + 1)) / KEY_ROWS;
+	struct ui_layout lay;
+
+	layout_get(w, h, &lay);
+
+	int32_t tile_w = lay.tile_w;
+	int32_t tile_h = lay.tile_h;
+	int32_t label_y = lay.status_h - 19;   /* 12 px text, 5 px down the 24 px bar */
 	bool small = tile_w < SMALL_TILE_W;
 
 	LOG_INF("Screen %d x %d, tiles %d x %d px", w, h, tile_w, tile_h);
@@ -160,13 +216,17 @@ static void build_ui(void)
 	lv_obj_set_style_bg_opa(scr, LV_OPA_COVER, 0);
 	lv_obj_remove_flag(scr, LV_OBJ_FLAG_SCROLLABLE);
 
+	if (IS_ENABLED(CONFIG_MACROPAD_UI_BEZEL)) {
+		label_y = (lay.status_h - 14) / 2;   /* centred in the status window */
+	}
+
 	/* Status bar: link on the left, knob feedback in the middle, battery on the right */
 	link_label = make_label(scr, &lv_font_montserrat_12, COL_TEXT);
-	lv_obj_align(link_label, LV_ALIGN_TOP_LEFT, inset + 6, inset + 5);
+	lv_obj_align(link_label, LV_ALIGN_TOP_LEFT, inset + 6, label_y);
 	info_label = make_label(scr, &lv_font_montserrat_12, COL_DIM);
-	lv_obj_align(info_label, LV_ALIGN_TOP_MID, 0, inset + 5);
+	lv_obj_align(info_label, LV_ALIGN_TOP_MID, 0, label_y);
 	battery_label = make_label(scr, &lv_font_montserrat_12, COL_DIM);
-	lv_obj_align(battery_label, LV_ALIGN_TOP_RIGHT, -(inset + 6), inset + 5);
+	lv_obj_align(battery_label, LV_ALIGN_TOP_RIGHT, -(inset + 6), label_y);
 
 	/* One tile per key, laid out like the keys: row 0 (back row) at the top */
 	for (uint8_t k = 0; k < KEY_COUNT; k++) {
@@ -177,8 +237,7 @@ static void build_ui(void)
 		lv_obj_t *icon;
 
 		lv_obj_set_size(tile, tile_w, tile_h);
-		lv_obj_set_pos(tile, grid_x + GAP + col * (tile_w + GAP),
-			       grid_y + GAP + row * (tile_h + GAP));
+		lv_obj_set_pos(tile, lay.grid_x + col * lay.step_x, lay.grid_y + row * lay.step_y);
 		lv_obj_set_style_bg_color(tile, lv_color_hex(COL_TILE), 0);
 		lv_obj_set_style_border_width(tile, 0, 0);
 		lv_obj_set_style_radius(tile, 6, 0);

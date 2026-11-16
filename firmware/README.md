@@ -17,7 +17,7 @@ Nothing has run on hardware yet. Ready-made images for concept B are in `prebuil
 
 - **Keys** send Windows shortcuts or media keys (table below). Holding a key holds the shortcut, so auto-repeat works.
 - **Knob** turns volume up and down; pressing it mutes.
-- **Screen** shows one tile per key in the same layout, lit while the key is held; the status bar shows the link (USB, Bluetooth, waiting), the knob action and the battery level. The backlight goes off after 60 s without input and comes back on the next key or turn.
+- **Screen** shows one tile per key in the same layout, lit while the key is held. With `CONFIG_MACROPAD_UI_BEZEL` (on by default, off for concept C) the tiles and status bar sit in the windows of the case's grid bezel, on a black background so the webs disappear; the status bar shows the link (USB, Bluetooth, waiting), the knob action and the battery level. The backlight goes off after 60 s without input and comes back on the next key or turn.
 - **USB** wins whenever a PC has the macropad configured; otherwise reports go over **Bluetooth** to the paired PC. A key press while the PC is asleep asks it to wake up (USB remote wake-up).
 - **Battery** level (Pro Micro only) is read once a minute and shown to Windows through the Battery Service.
 - **Firmware update without opening the case** (Pro Micro): hold the top-left key and press the knob for 3 s. The board restarts as a USB drive; copy `zephyr.uf2` onto it.
@@ -66,6 +66,7 @@ west build -p -b nrf52840dk/nrf52840 -d build_c_dk firmware -- -DEXTRA_CONF_FILE
 These come from datasheets and demo code, not from parts on the bench:
 
 1. **Screen orientation.** If the tiles are mirrored or upside down, change `mdac` in the overlay (0x70, 0xa0, 0x60, 0xc0 are the four landscape options).
+   Then check the tiles sit centred in the bezel windows. If they are all off by the same amount, the module has shifted in its pocket; if the screen is offset by a few pixels, adjust `x-offset` / `y-offset` in the overlay.
 2. **Colours.** If they look inverted (white background), add `inversion-off;` to the `lcd` node.
 3. **Knob direction.** If clockwise turns the volume down, swap the two `gpios` lines in the `knob` node.
 4. **LCD power on the Pro Micro.** If the backlight never comes on, measure the VCC pin: it should be 3.3 V once the firmware runs (P0.13 high).

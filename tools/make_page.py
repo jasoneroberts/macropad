@@ -26,12 +26,12 @@ from build import VIEW_COLOURS  # noqa: E402
 
 TEXT = {
     "A": dict(sub="3 × 3 keys · 1.69″ LCD · knob",
-              screen="1.69″ 240 × 280 IPS, portrait: a header row and 3 × 3 tiles of 80 px, one per key",
+              screen="1.69″ 240 × 280 IPS, portrait, under a grid bezel: a status strip and 3 × 3 windows (72 × 74 px), one per key",
               battery="603040 LiPo, about 700–800 mAh",
               good="the cheapest and quickest build, and the smallest case. A good first print to learn the fit.",
               watch="9 keys fill up fast, and the 26 mm knob is the smallest of the three."),
     "B": dict(sub="4 × 3 keys · 2.0″ LCD · knob",
-              screen="2.0″ 320 × 240 IPS, landscape: exactly 4 × 3 tiles of 80 px, laid out like the keys",
+              screen="2.0″ 320 × 240 IPS, landscape, under a grid bezel: a status strip and 4 × 3 windows of 9 × 7.8 mm (71 × 61 px), so each key gets its own mini display",
               battery="603040 LiPo, about 700–800 mAh",
               good="a Stream Deck-style layout, where every key's label sits on the screen in the same spot as the key.",
               watch="the 2.0″ module's board is 58 mm long, so the knob moves right and the case is 101 mm wide."),
@@ -159,7 +159,7 @@ def stack_svg(rB):
     box(ox, -3.0, -1.0, 32, "s-display", 0)
     for sx in (-1, 1):   # bezel with a 45 degree chamfer, glass pocket below it
         s.append(f'<path class="s-top" d="M{ox + sx * 15.6},0 H{ox + sx * 20} V3 H{ox + sx * 16.25} V1 H{ox + sx * 14.6} Z"/>')
-    dim(ox + 24, -1.0, 0, "bezel 1.0 (45° chamfer)", ox + 30)
+    dim(ox + 24, -1.0, 0, "bezel 1.0 (45° chamfer; grid webs taper 1.5 → 0.9)", ox + 30)
     dim(ox + 24, -3.0, -1.0, "glass 2.0 in a pocket", ox + 30)
     dim(ox + 24, -4.6, -3.0, "module board 1.6", ox + 30)
     dim(ox + 24, -6.6, -4.6, "printed clamp 2.0", ox + 30)
