@@ -1,0 +1,16 @@
+Designator,Current part (carrier schematic),Value now,Replace with JR component,Footprint (same pads as on the carrier board),LCSC
+U1,XIAO_nRF52840,XIAO nRF52840,XIAO_nRF52840,XIAO_nRF52840_SMD,
+Q1,Q_PMOS_GSD,DMG2305UX,Q_DMG2305UX_SOT-23,SOT-23,C150470
+R7,R,2k2,R_2k2_0805,R_0805_2012Metric,C114561
+R8,R,2k2,R_2k2_0805,R_0805_2012Metric,C114561
+R9,R,100k,R_100k_0805,R_0805_2012Metric,C149504
+C1,C,10uF,C_10u_0805,C_0805_2012Metric,C15850
+C2,C,1uF,C_1u_0805,C_0805_2012Metric,C28323
+D1,D_Schottky,SS14,D_SS14_SMA,D_SMA,C2480
+CN2,Conn_02x05_Odd_Even,Sensor ribbon,Conn_2x05_1.27mm_Shrouded,PinHeader_2x05_P1.27mm_Vertical,
+CN3,Conn_02x04_Odd_Even,Left buttons,Conn_2x04_2.00mm_Socket,PinHeader_2x04_P2.00mm_Vertical,
+CN4,Conn_02x04_Odd_Even,Right buttons,Conn_2x04_2.00mm_Socket,PinHeader_2x04_P2.00mm_Vertical,
+J5,Conn_01x02 (JST PH),Battery,Conn_JST_PH_B2B_Vertical,JST_PH_B2B-PH-K_1x02_P2.00mm_Vertical,C131337
+J1,Conn_01x02 (pin header),Front charge,Conn_Wire_Pads_1x02,PinHeader_1x02_P2.54mm_Vertical,
+TP3,TestPoint,GND,TestPoint_Pad_1.5mm,TestPoint_Pad_D1.5mm,
+TP4,TestPoint,3V3,TestPoint_Pad_1.5mm,TestPoint_Pad_D1.5mm,

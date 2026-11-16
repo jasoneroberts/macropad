@@ -14,6 +14,7 @@ A wireless macropad: 12 MX hot-swap keys (4 x 3), an EC11 knob with push, a 2.0â
 
 - `scad/macropad.scad` is the parametric case model. `tools/build.py` makes the STLs, `dxf/pcb_outline_<c>.dxf`, `build/report_<c>.json`, the GLB viewers and the fit check; then `tools/drawings.py`, `pcb/generate.py`, `tools/make_page.py`. Needs OpenSCAD 2021.01+, `pip install trimesh manifold3d numpy scipy networkx shapely`.
 - `stl/<c>/view/` and `page/` are generated and git-ignored; `stl/<c>/print/`, `dxf/`, `build/` and `pcb/<c>/` are generated but committed so they can be used without the tools.
+- `pcb/board/` builds the full concept B board (KiCad 7 Python as the engine, Freerouting, then EAGLE XML for Altium 19, which has no KiCad importer) into `pcb/B/kicad/` and `pcb/B/altium/`; parts come from the generated JR library in `pcb/library/`, shared with the trackball carrier. Run those scripts with `/usr/bin/python3` (KiCad's pcbnew module).
 - `firmware/` is the Zephyr app (NCS v3.3.0). `firmware/prebuilt/` holds the concept B images and must match the source: rebuild it after firmware changes.
 
 ## Firmware build
@@ -43,7 +44,7 @@ The build depends on `${ZEPHYR_BASE}/samples/subsys/usb/common` (`sample_usbd_in
 
 ## Keep in step
 
-- The controller pin map is in `firmware/boards/promicro_nrf52840_nrf52840_uf2.overlay`, `pcb/generate.py` (`u1_pins`, `LCD_PINS`) and `pcb/README.md`. Change them together and rerun `pcb/generate.py`.
+- The controller pin map is in `firmware/boards/promicro_nrf52840_nrf52840_uf2.overlay`, `pcb/board/design_b.py` (`U1_PINS`, the routed concept B board), `pcb/generate.py` (`u1_pins`, `LCD_PINS`) and `pcb/README.md`. Change them together; a change in `design_b.py` means rebuilding and rerouting the board (`pcb/B/altium/README.md`, "Rebuilding").
 - Matrix: rows are inputs (pull-up, active low), columns are driven low; each diode's anode is on the switch/row side, cathode to the column. Row 0 is the back row next to the screen and the top row of tiles; SW1 (back-left) is key 0.
 - Nordic's "low frequency I/O only" pins (P0.02/03, P0.09/10, P0.28-31, P1.01-07, P1.10-15) must not carry the LCD's SPI clock or data.
 

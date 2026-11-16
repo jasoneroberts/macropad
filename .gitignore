@@ -9,3 +9,9 @@ build_*/
 __pycache__/
 *.pyc
 .vscode/
+
+# pcb/board/route.py intermediates and KiCad's per-user view state
+pcb/*/kicad/*.dsn
+pcb/*/kicad/*.ses
+pcb/*/kicad/*.kicad_prl
+pcb/*/kicad/*-backups/
