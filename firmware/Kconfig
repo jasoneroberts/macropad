@@ -22,6 +22,17 @@ config MACROPAD_KEY_COLS
 	  arrives as input code INPUT_KEY_F13 + n; the knob push is always
 	  key 16 (INPUT_KEY_F13 + 16).
 
+config MACROPAD_UI_BEZEL
+	bool "Lay the tiles out for the grid bezel"
+	default y
+	help
+	  The case's grid bezel covers the screen with one window per key plus
+	  a status strip along the top, so each key gets its own "mini
+	  display". With this on, the tiles and the status bar are placed in
+	  those windows (same sums as scad/macropad.scad, bz_* values) and the
+	  rest of the screen stays black under the bezel webs. Turn it off for
+	  a case with one open window (and on the round concept C screen).
+
 config MACROPAD_UI_INSET
 	int "Screen margin in pixels"
 	default 0

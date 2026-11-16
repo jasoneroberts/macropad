@@ -1,42 +1,47 @@
-# Shopping list: concept B "Studio" (UK, October 2026)
+# Shopping list: concept B "Studio", one AliExpress order (UK)
 
-Prices are estimates in GBP from typical UK and AliExpress listings, not quotes. Check stock and price before ordering. Quantities include a few spares where parts are tiny or cheap.
+Everything for concept B comes from AliExpress in one basket. Delivery from RS, Farnell, Mouser or DigiKey costs more than the encoder and sockets themselves, and every part here is a common AliExpress item.
 
-## Order now: needed to try the firmware on the DK
+**Prices are rough estimates, not checked.** They are typical AliExpress UK prices including VAT, but AliExpress pages could not be read when this list was written (2026-10-26). The one price checked is the screen's, on Waveshare's own site. Use the "Check on the listing" column before adding each item; several of those details decide whether the part fits the case or works with the firmware.
 
-| Item | Qty | Est. £ | Where to look | Notes |
-|---|---|---|---|---|
-| Waveshare 2inch LCD Module (ST7789V, 240 x 320) | 1 | 11-14 | The Pi Hut, Amazon UK, Waveshare | Comes with an 8-wire PH2.0 to Dupont cable. Measure the glass and board once it arrives (see "Measure" below). |
-| Bourns PEC11R-4220F-S0024 encoder (EC11 size, 24 detents, push switch, 20 mm D-shaft) | 2 | 3-4 | LCSC C143797, Mouser | One for the breadboard, one for the build. The PCB's lug slots are sized for it. Any EC11 with a push switch works on the breadboard. |
-| Breadboard jumper wires (female-female / male-female) | 1 pack | 3 | Anything | For the DK wiring in `firmware/boards/nrf52840dk_nrf52840.overlay`. |
+- For orders up to £135, AliExpress charges UK VAT at checkout, so there is nothing to pay on delivery.
+- Items from different sellers arrive as separate parcels. "Choice" listings are combined into one parcel, so prefer them where the listing still passes the checks.
+- Some sellers will not ship lithium cells to the UK. If the LiPo listing refuses at checkout, pick another seller.
 
-With these and the DK you can run the screen, the knob and four keys (the DK buttons) over USB and Bluetooth.
+## The basket
 
-## Order next: the macropad itself
+The board parts (rows 3, 7-12) must match the PCB footprints; `pcb/B/altium/reference/order-list.csv` lists them with LCSC numbers if you would rather buy those from LCSC alongside the JLC boards.
 
-`pcb/B/altium/reference/order-list.csv` has the same list as a spreadsheet, with the LCSC numbers for one combined LCSC order.
+**DK test** marks what you need to try the screen and knob on the nRF52840 DK before the PCB exists (wiring at the top of `firmware/boards/nrf52840dk_nrf52840.overlay`).
 
-| Item | Qty | Est. £ | Where to look | Notes |
-|---|---|---|---|---|
-| SuperMini nRF52840 (nice!nano v2 clone, USB-C) | 3 | 12-15 | AliExpress | **Chosen.** One for the build, two spares, because buyers report the odd dud batch. Pick a listing that says "nice!nano v2 compatible" with the UF2 bootloader. Boards made since April 2024 have the fix for a battery drain when VCC is switched off. |
-| Low-profile header pins or 2.5 mm "Mill-Max" style sockets for the controller | 1 set | 2-6 | Mechboards, AliExpress | Sets the 2.5 mm gap the case is designed around. |
-| MX-style switches | 14 | 6-12 | Mechboards, Amazon UK | 12 + 2 spares. Any 3- or 5-pin MX switch; hot-swap means you can change later. |
-| 1u keycaps, MX stem, blank or relegendable | 12 | 5-15 | Mechboards, AliExpress | Relegendable caps let you label the keys; the screen does that too. |
-| Kailh MX hot-swap sockets (CPG151101S11) | 15 | 2-5 | LCSC C2803348, Mechboards, AliExpress | |
-| 1N4148W diodes, SOD-123 | 50 | 1 | LCSC C81598 | 13 used. |
-| 0805 capacitors, 10 nF (x2) and 10 uF (x1) | LCSC minimum | 1 | LCSC C1710, C15850 | Probably already in the drawer from the trackball. |
-| JST PH 2-pin side-entry THT header (S2B-PH-K-S) | 3 | 1 | LCSC C173752 | Lies flat on the board's underside, plug from the left. Check the LiPo's lead polarity (pin 1 = +) before plugging in. |
-| LiPo 603040, 3.7 V, ~800 mAh, JST-PH lead, with protection board | 1 | 6-8 | The Pi Hut, Amazon UK | 6 x 30 x 40 mm. Larger cells will not fit under the screen. |
-| C&K OS102011MA1QN1 right-angle slide switch | 3 | 1-2 | LCSC C226259 | 4 mm actuator; stands 0.9 mm out of the right wall. The PCB and case are drawn for this part. |
-| XKB TS-1187A-B-A-B tact switch, 5.1 x 5.1 x 1.5 mm SMD | 5 | 0.2 | LCSC C318884 | Reset, only for recovery. |
-| M3 heat-set inserts, short (M3 x 4, about 4 mm OD) | 1 pack | 4-6 | Amazon UK (Ruthex / CNC Kitchen style) | 4 used. Print the test coupon to check the hole size. |
-| M3 x 8 countersunk screws (ISO 10642) | 4 | 2 | Accu, Amazon UK | Bottom plate to the corner inserts. |
-| M2 x 5 self-tapping pan-head screws | 6 | 2 | Accu, Amazon UK | 4 for the PCB, 2 for the display clamp. |
-| 10 mm round rubber feet | 4 | 2 | Amazon UK | Add about 2 mm to the heights on the page. |
-| Main PCB, 2 layers, 95.3 x 110.5 mm | 5 | 10-20 | JLCPCB, delivered | Bare board only; everything is hand-soldered. Gerbers from Altium (`pcb/B/altium/README.md`, Step 6). Over 100 mm long, so it misses the cheapest 100 x 100 price band. |
-| Filament (PLA or PETG) | ~100 g | 2 | | Top shell, bottom plate, knob, clamp. |
+| # | Item | Buy (used) | Search for | Check on the listing | Est. £ (unchecked) |
+|---|---|---|---|---|---|
+| 1 | SuperMini nRF52840 | 3 (1) | `SuperMini nRF52840` | USB-C, "nice!nano v2 compatible", UF2 bootloader already on it. Two 12-pin headers in the bag: their 2.5 mm plastic is the gap the case is designed around. Two spares because buyers report the odd dud batch; test each one before soldering (`firmware/README.md`). | 9-14 for 3 |
+| 2 | Waveshare 2inch LCD Module (**DK test**) | 1 | `Waveshare 2inch LCD Module`, from the Waveshare official store | Waveshare part 17344: ST7789V(W), 240 x 320 IPS, SPI, 3.3/5 V, board 58 x 35 mm, with the 8-wire PH2.0 cable. The case window and clamp are sized for this board; a generic "2.0 inch ST7789" module has a different board and pin order and will not fit. | 10-13 (Waveshare's own price is US$10.99, checked 2026-10-26) |
+| 3 | EC11 rotary encoder with push switch (**DK test**) | pack of 5 (1, plus 1 for the DK) | `EC11 rotary encoder 20mm half shaft with switch` | 5 pins (3 encoder + 2 switch) and two flat mounting lugs: the PCB has 2.8 x 1.5 mm slots for the lugs of a Bourns PEC11R / Alps EC11E-size body. **20 detents and 20 pulses per turn**: a 30-detent / 15-pulse one makes the firmware step only every second click. 6 mm D ("half") shaft, 20 mm long: cut it to fit the knob (the model assumes 15 mm above the body); too long can be cut, too short cannot. | 2-4 |
+| 4 | Kailh MX hot-swap sockets | 20 (12) | `Kailh hot swap socket MX` | Kailh CPG151101S11, MX type (not Choc). | 2-4 |
+| 5 | MX-style switches | about 15 (12) | `Gateron MX switches`, `KTT switches` or `Outemu switches` | MX cross stem. Linear, tactile or clicky is your choice. 3-pin switches fit any PCB; 5-pin ones need the two extra peg holes in the footprint, or clip the pegs off. | 5-12 |
+| 6 | 1u keycaps | 12 or more (12) | `relegendable keycaps 1u MX` or `DSA blank keycaps 1u` | MX cross stem, 1u. Relegendable (clear two-piece) caps take a paper label; the screen shows the labels anyway. | 3-8 |
+| 7 | 1N4148W diodes | 100 (13) | `1N4148W SOD-123` | SOD-123 (marked T4). Not SOD-323, which is smaller than the PCB footprint. | about 1 |
+| 8 | 0805 capacitors, 10 nF and 10 µF | 50-100 of each (2 and 1) | `0805 capacitor 10nF`, `0805 capacitor 10uF` | 0805 size, 10 µF rated 10 V or more. Skip if you have them from the trackball. | about 2 for both |
+| 9 | JST PH 2-pin **side-entry** (right-angle) header, S2B-PH-K-S | pack of 10 (1) | `JST PH 2.0 2P right angle pin header` or `S2B-PH-K-S` | PH, 2.0 mm pitch (not XH 2.5 mm or ZH 1.5 mm), **horizontal / side entry**, through-hole: the PCB footprint (J1) is for the side-entry part lying flat on the board's underside; a vertical header will not fit under the case. LCSC C173752 if you add an LCSC order. | about 1 |
+| 10 | LiPo 603040, about 800 mAh | 1 (1) | `603040 lipo 800mAh PH2.0` | No bigger than 6 x 30 x 40 mm, or it will not fit the cradle under the screen. Protection board, JST PH 2.0 lead. Before plugging in, check the red wire lands on J1 pin 1 (BAT+); lead polarity varies, so swap the crimps in the housing if it does not. | 3-6 |
+| 11 | C&K OS102011MA1QN1 slide switch | pack of 10 (1) | `OS102011MA1QN1` | SPDT, right-angle, 2.0 mm pin pitch with two mounting legs. The PCB footprint (SW_PWR) is drawn for this exact part, so a look-alike such as SK12D07VG4 (2.54 mm pitch) will not fit. 4 mm actuator, stands 0.9 mm out of the right wall. LCSC C226259. | about 1 |
+| 12 | XKB TS-1187A-B-A-B tact switch | pack of 10-20 (1) | `TS-1187A 5.1x5.1 tact switch SMD 4 pin` | 5.1 x 5.1 x 1.5 mm, 4-pin SMD: the PCB footprint (SW_RST) has four pads for this part, so a 2-pin 6 x 3.5 mm switch will not fit. Reset button, only for recovery. LCSC C318884. | about 1 |
+| 13 | M3 heat-set inserts | 50 (4) | `M3 heat set insert M3x4x4.2` | M3 thread, 4 mm long or shorter (the corner bosses are sized for 4 mm), outside diameter about 4.2 mm. Print the test coupon: it tries 3.8 and 4.0 mm holes. | 2-3 |
+| 14 | M3 x 8 countersunk screws | 20 (4) | `M3x8 countersunk hex socket DIN 7991` | 90° countersunk (DIN 7991 / ISO 10642), head about 6 mm. Bottom plate to the corner inserts. | 1-2 |
+| 15 | M2 x 5 self-tapping screws | 50-100 (6) | `M2x5 self tapping screw pan head` | Pan head, M2 x 5 mm. 4 for the PCB, 2 for the display clamp. | about 1 |
+| 16 | 10 mm rubber feet | 1 sheet (4) | `10mm self adhesive rubber feet` | 10 mm round, 2-3 mm tall. They sit in 10.6 mm recesses, 1 mm deep, so they add about 2 mm to the heights on the page. | about 1 |
+| 17 | Dupont jumper wires (**DK test**) | 40 female-female and 40 male-female, 20 cm | `dupont jumper wire female female 20cm` | For the knob on the DK. The screen's cable already ends in Dupont sockets that fit the DK's headers. | 1-3 |
+| 18 | Mini breadboard (**DK test**, optional) | 1 | `mini breadboard 170` | Somewhere to plug the EC11 in while testing; bend its two mounting lugs flat. | about 1 |
 
-**Rough total for concept B:** about £60-90 including the spare controller, switches, keycaps and PCBs, or about £35 for one unit's parts if switches and keycaps come from what you have. The electronics on the board itself are about £9, plus £11 for the screen and £6 for the LiPo.
+**Basket total:** about £45-80, unchecked. Most of it is the switches, the keycaps and the screen; the electronics on the board itself are under £10.
+
+## Not in this basket
+
+- **Main PCB** (2 layers, 95 x 110 mm, 5 boards): JLCPCB or PCBWay once the board is drawn in Altium, about £10-20 delivered. It is over 100 mm long, so it misses the cheapest 100 x 100 mm price band.
+- **Filament** (PLA or PETG, about 100 g): once the printer is chosen.
+- **Soldering iron tip for the inserts:** setting M3 heat-set inserts needs a tip that fits them, or a dedicated insert tip.
 
 ## Measure when the parts arrive
 
@@ -44,11 +49,10 @@ The case model uses datasheet and listing numbers for these. Measure them and ch
 
 - Screen glass outline and thickness, and where the visible area sits on it (`LCD200` table).
 - EC11 body height above the PCB (`enc_body_h`) and shaft length (`enc_shaft_l`).
-- SuperMini: USB-C height and centre relative to the module board (`usb_size`, `z_usb`: modelled as a mid-mount connector centred on the 1.6 mm board), so the rear opening lines up.
 - Heat-set insert outside diameter and length (`insert_d`, `insert_len`), using the printed test coupon.
 - LiPo size (`LIPO_603040`).
 - Switch hole fit (`sw_hole`), using the test coupon's four sizes.
 
 ## Printer
 
-The largest B part is the top shell, 101 x 116 mm and 22 mm tall, printed face down without supports. Any printer with a 180 mm bed is enough for all three concepts (C's top shell is 92 x 140 mm). A 0.4 mm nozzle and PETG or PLA are fine; heat-set inserts need a soldering iron tip that fits M3 inserts.
+The largest B part is the top shell, 101 x 116 mm and 22 mm tall, printed face down without supports. Any printer with a 180 mm bed is enough for all three concepts (C's top shell is 92 x 140 mm). A 0.4 mm nozzle and PETG or PLA are fine.

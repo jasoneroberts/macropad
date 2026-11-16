@@ -103,6 +103,13 @@
   240
  ],
  "bezel_t": 1,
+ "bezel_windows": [],
+ "bezel_tile_px": [
+  -9,
+  -17,
+  20
+ ],
+ "bezel_taper": 0.3,
  "mcu_c": [
   73,
   119.8
