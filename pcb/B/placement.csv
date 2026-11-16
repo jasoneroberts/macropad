@@ -34,7 +34,7 @@ SW9,Top,21.93,17.52,0,MX_HOTSWAP,"row 2 col 0; switch pins toward +y (back), soc
 SW10,Top,40.98,17.52,0,MX_HOTSWAP,"row 2 col 1; switch pins toward +y (back), socket on the bottom"
 SW11,Top,60.02,17.52,0,MX_HOTSWAP,"row 2 col 2; switch pins toward +y (back), socket on the bottom"
 SW12,Top,79.08,17.52,0,MX_HOTSWAP,"row 2 col 3; switch pins toward +y (back), socket on the bottom"
-SW_PWR,Bottom,96.30,72.00,90,SLIDE_RA,"actuator toward +x through the right wall, matches power_switch() in macropad.scad"
+SW_PWR,Bottom,96.30,76.00,90,SLIDE_RA,"actuator toward +x through the right wall, matches power_switch() in macropad.scad"
 SW_RST,Bottom,73.00,73.25,0,TACT_6x3.5,only needed to recover a bricked board
 TP1,Bottom,75.00,77.25,0,TP_1.5,DBG_TX
 TP2,Bottom,83.00,77.25,0,TP_1.5,GND

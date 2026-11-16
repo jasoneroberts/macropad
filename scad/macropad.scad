@@ -118,7 +118,7 @@ CFG_B = [ ["name","B - Studio"], ["cols",4], ["rows",3], ["tilt",6],
           ["W",101.0], ["m_front",8], ["band_gap",4], ["band_h",37], ["m_back",10],
           ["disp",LCD200], ["disp_c",[44.5,87.65]],
           ["enc_c",[82.0,87.65]], ["knob_d",28],
-          ["mcu_x",82.0], ["sw_y",72], ["lipo",LIPO_603040], ["bat",[39,88,90]],
+          ["mcu_x",82.0], ["sw_y",76], ["lipo",LIPO_603040], ["bat",[39,88,90]],
           ["pcb_open",true] ];
 CFG_C = [ ["name","C - Deck"], ["cols",4], ["rows",4], ["tilt",7],
           ["W",92.2], ["m_front",8], ["band_gap",4], ["band_h",41.5], ["m_back",10],
