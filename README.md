@@ -33,7 +33,7 @@ Heights are without the 10 mm rubber feet (add about 2 mm).
 | `firmware/` | Zephyr / NCS v3.3.0 app: keys, knob, LVGL screen, USB + Bluetooth HID. See `firmware/README.md`. |
 | `firmware/prebuilt/` | Ready-to-flash concept B images: `macropad_B_promicro.uf2` and `macropad_B_dk.hex`. GitHub Actions also builds them on every firmware change (the run's "Artifacts"). |
 | `pcb/` | `generate.py` and, per concept, BOM, netlist, placement and outline for Altium. See `pcb/README.md`. |
-| `SHOPPING.md` | What to buy for B (UK prices) and what to measure when it arrives. |
+| `SHOPPING.md` | One AliExpress basket for B (rough UK prices) and what to measure when it arrives. |
 | `LICENSES/` | Upstream licences for the files based on Nordic and Zephyr samples (see "Licences" below). |
 
 ## Rebuild after changing a parameter
@@ -65,7 +65,7 @@ These come from listings or datasheets, not from parts on the bench:
 
 - Top shell = switch plate. 3 mm skin: 1.5 mm lip with the 14 mm hole, 15 mm pocket below for the MX clips. PCB top 5.0 mm below the plate top (MX standard), Kailh sockets under the PCB.
 - The top surface is tilted, the bottom plate is flat, so the inside gets deeper toward the back. LiPo, controller and display stack live under the rear band.
-- Display: window = active area + 0.4 mm with a 45° chamfer through a 1 mm bezel; glass in a pocket; printed clamp with two M2 screws holds the module board. Main PCB has a cut-out there; 8 wires to the module.
+- Display: a 1 mm bezel over the glass. On the rectangular screens (A, B) it is a grid bezel: a status strip plus one window per key, separated by webs 12 px wide at the glass (1.53 mm on B) that taper to about 0.9 mm at the top, so the screen looks like separate mini displays. The windows are cut from the same pixel sums as the firmware's tiles (`bz_*` in the scad, `BEZEL_*` in `Display_UI.c`; set `grid_bezel = false` for one open window). The round C screen keeps one window with a 45° chamfer. Outer edges sit 0.4 mm beyond the active area; glass in a pocket; printed clamp with two M2 screws holds the module board. Main PCB has a cut-out there; 8 wires to the module.
 - Controller: SuperMini nRF52840 (chosen 2026-10-21; a nice!nano v2 also fits) on 2.5 mm headers under the PCB, component side down, USB-C through a 13 × 7.5 mm rear opening.
 - Four M3 countersunk screws into M3 heat-set inserts in the corner bosses; M2 self-tapping screws for the PCB pillars and the display clamp; slide switch slot in the right wall.
 - Prints without supports: top shell face down, bottom plate and clamp flat, knob top face down. Largest part is C's top shell, 92 × 140 mm.
